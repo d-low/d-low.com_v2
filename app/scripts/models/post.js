@@ -36,6 +36,12 @@ Dlow.Models = Dlow.Models || {};
             // this.set("imags", ...);
             // this.set("thumbnails", ...);
             // this.trigger("postready");
+        },
+
+        /**
+         * @description TODO: Return a random image from our array of images.
+         */
+        getRandomImage: function() { 
         }
     });
 
