@@ -1,0 +1,14 @@
+node_modules
+npm-debug.log
+dist
+test/temp
+.sass-cache
+bower_components
+.tmp
+app/bower_components
+app/data/content.js
+app/data/02-South_America
+app/data/03-CDT
+app/data/04-Central_America
+app/data/05-Colorado
+app/data/06-Europe
