@@ -5,6 +5,8 @@ Dlow.Models = Dlow.Models || {};
 (function () {
     'use strict';
 
+    // REVIEW: We don't need a Home model, a Content model can be used for the
+    // same functionality.
     Dlow.Models.Home = Backbone.Model.extend({
 
         url: '',
@@ -49,8 +51,7 @@ Dlow.Models = Dlow.Models || {};
                 var index = _.random(0, keys.length - 1);
                 return this.findRandomPost(key, subContent[keys[index]]);
             }
-
-        },
+        }
     });
 
 })();
