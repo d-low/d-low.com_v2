@@ -9,6 +9,12 @@ Dlow.Models = Dlow.Models || {};
 
         url: '',
 
+        /**
+         * @description Pass a leaf node of the Dlow.Content structure as the
+         * attributes argument to the constructor and here if we have a path,
+         * we make a get request to obtain the index.html, and in the success
+         * handler, set other attributes that will be used to render a post.
+         */
         initialize: function() {
             if (this.get("path")) {
                 $.get(
@@ -44,5 +50,19 @@ Dlow.Models = Dlow.Models || {};
         getRandomImage: function() { 
         }
     });
+
+    /**
+     * @description Static, or class, method used to check if a node in our
+     * content structure is a post.
+     */
+    Dlow.Models.Post.isPost = function(node) { 
+        var isPost = false;
+
+        if (_.isObject(node) && typeof(node["path"]) !== "undefined") {
+            isPost = true;
+        }
+
+        return isPost;
+    };
 
 })();

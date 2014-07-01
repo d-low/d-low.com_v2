@@ -40,7 +40,7 @@ Dlow.Models = Dlow.Models || {};
          * node and stopping when the current node has a path property.
          */
         findRandomPost: function(key, subContent) {
-            if (typeof(subContent["path"]) !== "undefined") {
+            if (Dlow.Models.Post.isPost(subContent)) {
                 var randomPosts = this.get("randomPosts");
                 randomPosts[key] = new Dlow.Models.Post(subContent);
             }
