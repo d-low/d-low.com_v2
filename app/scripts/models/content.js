@@ -10,16 +10,30 @@ Dlow.Models = Dlow.Models || {};
         url: '',
 
         /**
-         * @description Given a node in the content data structure populate
-         * either the subcontents or posts depending on whether the node's 
-         * children are leaf nodes or not.
-         * TBD: Should we pass a path, rather than a node in the content data
-         * structure to the constructor?  That would make the calculation of
-         * the path of our subcontents much, much easier...
+         * @description Given a path to a node in the content data structure 
+         * populate either the subcontents or posts depending on whether the 
+         * node's children are leaf nodes or not.
          */
         initialize: function() {
             this.set("subcontents", []);
             this.set("posts", []);
+
+            // Find our content in the content data structure based on the path 
+            // passed to us.  When called for the top level node our path will
+            // not be set.
+
+            var path = this.get("path");
+            var content = Dlow.Content;
+
+            if (path) {
+                var parts = path.split("/");
+                
+                _.each(parts, function(part) {
+                    content = content[part];
+                });
+            }
+
+            this.set("content", content);
 
             if (this.areChildrenPosts()) {
                 this.setPosts();
@@ -76,6 +90,7 @@ Dlow.Models = Dlow.Models || {};
          * randomPost } obects.
          */
         setSubcontents: function() { 
+            var path = this.get("path");
             var content = this.get("content");
             var subcontents = this.get("subcontents");
             var keys = _.keys(content);
@@ -85,7 +100,7 @@ Dlow.Models = Dlow.Models || {};
             
                 subcontents.push({
                     name: key,
-                    path: null,
+                    path: path + "/" + key,
                     randomPost: this.findRandomPost(key, content[key])
                 });
             }
@@ -94,9 +109,9 @@ Dlow.Models = Dlow.Models || {};
         },
 
         /** 
-         * TODO: Can this method be shared or is the home model really just a 
-         * content model used on the home page?  Now that I think about it, the
-         * later makes sense!
+         * Recurse through our nodes, selecting one at random at each level to
+         * follow, until we find a post that will be used as our random post
+         * for the current subcontent item.
          */
         findRandomPost: function(key, subContent) {
             if (Dlow.Models.Post.isPost(subContent)) {
