@@ -1,4 +1,4 @@
-/*global dLow.comV2, Backbone*/
+/*global Dlow, Backbone*/
 
 Dlow.Routers = Dlow.Routers || {};
 
@@ -6,6 +6,7 @@ Dlow.Routers = Dlow.Routers || {};
     'use strict';
 
     Dlow.Routers.Content = Backbone.Router.extend({
+
       initialize: function (options) {
         console.log("Dlow.Routers.Content: started")
         Backbone.history.start({pushState: false})
@@ -22,9 +23,13 @@ Dlow.Routers = Dlow.Routers || {};
 
       content: function(path) {
         // TODO: Render content page
-        this.model = new Dlow.Models.Content({path: path});;
-        console.log("Requested: /content/" + path + ", saved model instance to Dlow.router.model.");
+        var model = new Dlow.Models.Content({path: path});
+        this.view = new Dlow.Views.Content({
+          el: $("#content"),
+          model: model
+        })
       }
+
     });
 
 })();
