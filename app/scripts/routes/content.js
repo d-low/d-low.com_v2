@@ -22,9 +22,8 @@ Dlow.Routers = Dlow.Routers || {};
 
       content: function(path) {
         // TODO: Render content page
-        var content = new Dlow.Models.Content({path: path});
-        console.log("Requested: /content/" + path + ", dum}ping content model:");
-        console.dir(content);
+        this.model = new Dlow.Models.Content({path: path});;
+        console.log("Requested: /content/" + path + ", saved model instance to Dlow.router.model.");
       }
     });
 
