@@ -22,12 +22,18 @@ Dlow.Routers = Dlow.Routers || {};
       },
 
       content: function(path) {
-        // TODO: Render content page
         var model = new Dlow.Models.Content({path: path});
-        this.view = new Dlow.Views.Content({
-          el: $("#content"),
-          model: model
-        })
+
+        if (model.isPost()) {
+          model = new Dlow.Models.Post(model.get("content"));
+          console.log("TODO: Render a post view!");
+        }
+        else {
+          this.view = new Dlow.Views.Content({
+            el: $("#content"),
+            model: model
+          });
+        }
       }
 
     });

@@ -38,7 +38,7 @@ Dlow.Models = Dlow.Models || {};
             if (this.areChildrenPosts()) {
                 this.setPosts();
             }
-            else {
+            else if (!this.isPost()) {
                 this.setSubcontents();
             }
         },
@@ -68,6 +68,10 @@ Dlow.Models = Dlow.Models || {};
             }
 
             return childrenArePosts;
+        },
+
+        isPost: function() { 
+            return Dlow.Models.Post.isPost(this.get("content"));
         },
 
         setPosts: function() { 
