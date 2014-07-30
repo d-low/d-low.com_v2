@@ -1,2 +1,39 @@
-<p>Your content here.</p>
+<h2 class="content-header">
+  <%= content.get("title") %>
+</h2>
+ 
+<% if (content.areChildrenPosts()) { %>
+  <!--
+  // TODO: Render list of posts for each content.get("posts") instance.
+  -->
+<% } else { %>
+  <ul class="list-unstyled sub-content-items">
+    <% for (var i = 0, subcontents = content.get("subcontents"); i < subcontents.length; i++) { %>
+      <li class="sub-content-item content-item-container">
+        <a class="sub-content-link" 
+          href="#content/<%= subcontents[i].path %>">
+          <img alt="TODO: Get caption from random image"
+            class="img-responsive js-lazy-load js-lazy-load-immediate"
+            data-original="TODO: Use src value, and set ot blank.gif, when we're lazy loading images" 
+            src="<%= subcontents[i].randomPost.getRandomImage() %>" /> 
+          <span class="sub-content-link-title">
+            <%= subcontents[i].name %>
+          </span>
+        </a>
+      </li>
+    <% } %>
+  </ul>
+
+<% } %>
+
+<!-- TODO
+section.content-navigation
+  = render \
+    :partial => '/contents_navigation', \
+    :locals => { \
+      :fixed => true, \
+      :home_model => @home_model, \
+      :random_image => @random_image \
+    }
+-->
 

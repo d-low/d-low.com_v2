@@ -5,9 +5,9 @@ Dlow.Views = Dlow.Views || {};
 (function () {
     'use strict';
 
-    Dlow.Views.Content = Backbone.View.extend({
+    Dlow.Views.Post = Backbone.View.extend({
 
-        template: JST['app/scripts/templates/content.ejs'],
+        template: JST['app/scripts/templates/post.ejs'],
 
         tagName: 'div',
 
@@ -19,12 +19,10 @@ Dlow.Views = Dlow.Views || {};
 
         initialize: function () {
             this.listenTo(this.model, 'change', this.render);
-            this.render();
-            // TODO: Initialize event handlers, bind plug-ins, etc.
         },
 
         render: function () {
-            this.$el.html(this.template({content: this.model}));
+            this.$el.html(this.template(this.model.toJSON()));
         }
 
     });

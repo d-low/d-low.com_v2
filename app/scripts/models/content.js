@@ -105,6 +105,7 @@ Dlow.Models = Dlow.Models || {};
                 subcontents.push({
                     name: key,
                     path: path + "/" + key,
+                    title: "", // TODO: Need pretty title!
                     randomPost: this.findRandomPost(key, content[key])
                 });
             }

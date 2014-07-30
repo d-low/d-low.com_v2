@@ -26,7 +26,10 @@ Dlow.Routers = Dlow.Routers || {};
 
         if (model.isPost()) {
           model = new Dlow.Models.Post(model.get("content"));
-          console.log("TODO: Render a post view!");
+          this.view = new Dlow.Views.Post({
+            el: $("#content"),
+            model: model
+          });
         }
         else {
           this.view = new Dlow.Views.Content({

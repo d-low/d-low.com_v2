@@ -1,0 +1,29 @@
+<section class="post js-post content-item-container">
+  <h3 class="post-title">
+    <%= (model.get("title") || "--") + ", " + (model.get("date") || "--") %>
+  </h3>
+  <div class="post-content">
+    <div class="js-post-content-togglable">
+      <%= model.get("content") || "--" %>
+    </div>
+  </div>
+  <ul class="post-images js-post-images list-unstyled uninitialized">
+    <% for (var i = 0, images = post.get("images") || []; i < images.length; i++) { %>
+      <li class="post-image-container">
+        <a class="js-post-image-link"
+          data-itemnum="<%= i %>"
+          href="javascript:void(0);">
+          <img alt="<%= image[i].get('caption') %>"
+              class="post-image js-post-image js-lazy-load"
+              title="<%= image[i].get('caption') %>"
+              src="/images/blank.gif"
+              data-original="<%= image.get('relative_thumbnail_path') %>"
+              data-largeimage="<%= image.get('relative_path') %>" />
+          <span class="post-image-caption">
+            <%= image[i].get('caption') %>
+          </span>
+        </a>
+      </li>
+    <% } %>
+  </ul>
+</section>
