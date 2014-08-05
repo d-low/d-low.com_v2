@@ -23,15 +23,7 @@ Dlow.Models = Dlow.Models || {};
             // not be set.
 
             var path = this.get("path");
-            var content = Dlow.Content;
-
-            if (path) {
-                var parts = path.split("/");
-                
-                _.each(parts, function(part) {
-                    content = content[part];
-                });
-            }
+            var content = this.getNodeFromPath(path);
 
             this.set("content", content);
 
@@ -127,7 +119,10 @@ Dlow.Models = Dlow.Models || {};
                 var index = _.random(0, keys.length - 1);
                 return this.findRandomPost(key, subContent[keys[index]]);
             }
-        }
+        },
+
     });
+
+    _.extend(Dlow.Models.Content.prototype, Dlow.Models.Mixins);
 
 })();
