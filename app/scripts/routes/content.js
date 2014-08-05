@@ -22,19 +22,16 @@ Dlow.Routers = Dlow.Routers || {};
       },
 
       content: function(path) {
-        var model = new Dlow.Models.Content({path: path});
-
-        if (model.isPost()) {
-          model = new Dlow.Models.Post(model.get("content"));
+        if (Dlow.Models.Post.isPost(null, path)) {
           this.view = new Dlow.Views.Post({
             el: $("#content"),
-            model: model
+            model: new Dlow.Models.Post({path: path})
           });
         }
         else {
           this.view = new Dlow.Views.Content({
             el: $("#content"),
-            model: model
+            model: new Dlow.Models.Content({path: path})
           });
         }
       }

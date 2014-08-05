@@ -51,11 +51,23 @@ Dlow.Models = Dlow.Models || {};
         }
     });
 
+    // We extend the object itself, not the prototype, because we need the 
+    // getNodeFromPath() method available in the isPost() class method, not on
+    // instance methods.
+    // NOTE: If this changes, and we need this method on an instance, then we
+    // can extend the prototype too!  
+    _.extend(Dlow.Models.Post, Dlow.Models.Mixins);
+
     /**
-     * @description Static, or class, method used to check if a node in our
-     * content structure is a post.
+     * @description Static, or class, method used to check if a node or path to
+     * a node in our content structure is a post.
+     * @param node Optional parameter, a node in our content data structure.
+     * @param path If node not specified, find the node corresponding to the 
+     * specified path.
      */
-    Dlow.Models.Post.isPost = function(node) { 
+    Dlow.Models.Post.isPost = function(node, path) { 
+        node = node || Dlow.Models.Post.getNodeFromPath(path);
+
         var isPost = false;
 
         if (_.isObject(node) && typeof(node["path"]) !== "undefined") {
