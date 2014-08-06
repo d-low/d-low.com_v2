@@ -46,9 +46,16 @@ Dlow.Models = Dlow.Models || {};
                     .replace(/-/g, ', ')
                     .replace(/(\s\d\d\d\d)$/, ',$1')
             );
-            // this.set("data", ...);
-            // this.set("images", ...);
-            // this.set("thumbnails", ...);
+            
+            this.set(
+                "images", 
+                new Dlow.Collections.Images(null, {
+                    path: this.get("path"),
+                    filenames: node.imgs,
+                    thumbs: node.thumbs
+                })
+            );
+            
             this.trigger("postready");
         },
 
