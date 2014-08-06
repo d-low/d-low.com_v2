@@ -49,7 +49,7 @@ Dlow.Models = Dlow.Models || {};
             // this.set("data", ...);
             // this.set("images", ...);
             // this.set("thumbnails", ...);
-            // this.trigger("postready");
+            this.trigger("postready");
         },
 
         /**
