@@ -35,9 +35,17 @@ Dlow.Models = Dlow.Models || {};
         },
 
         getIndex_success: function(data, textStatus, jqXHR) {
+            var node = Dlow.Models.Post.getNodeFromPath(this.get("path"));
+
             this.set("html", data);
-            // TODO:
-            // this.set("title", ...);
+            this.set("name", node.name);
+            this.set("title", 
+                node.name
+                    .replace(/^\d+-/, '')
+                    .replace(/_/g, ' ')
+                    .replace(/-/g, ', ')
+                    .replace(/(\s\d\d\d\d)$/, ',$1')
+            );
             // this.set("data", ...);
             // this.set("images", ...);
             // this.set("thumbnails", ...);
