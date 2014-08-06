@@ -97,7 +97,7 @@ Dlow.Models = Dlow.Models || {};
                 subcontents.push({
                     name: key,
                     path: path + "/" + key,
-                    title: "", // TODO: Need pretty title!
+                    title: key.replace(/^\d+-/, '').replace(/-/g, ' '),
                     randomPost: this.findRandomPost(key, content[key])
                 });
             }
