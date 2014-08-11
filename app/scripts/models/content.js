@@ -17,6 +17,8 @@ Dlow.Models = Dlow.Models || {};
         initialize: function() {
             this.set("subcontents", []);
             this.set("posts", []);
+            this.set("url", "/#content/" + this.get("path"));
+            // TODO: this.set("title", ...);
 
             // Find our content in the content data structure based on the path 
             // passed to us.  When called for the top level node our path will
@@ -106,9 +108,13 @@ Dlow.Models = Dlow.Models || {};
         },
 
         /** 
-         * Recurse through our nodes, selecting one at random at each level to
-         * follow, until we find a post that will be used as our random post
-         * for the current subcontent item.
+         * @description Recurse through our nodes, selecting one at random at 
+         * each level to follow, until we find a post that will be used as our 
+         * random post for the current subcontent item.
+         * REVIEW: It is confusing to have a method titled findRandomPost() and
+         * a getRandomPost().  Shouldn't we just find a random post from either 
+         * our subcontents or posts, and set it as a member on the model?  Why
+         * do we have both methods?
          */
         findRandomPost: function(key, subContent) {
             if (Dlow.Models.Post.isPost(subContent)) {
@@ -119,6 +125,30 @@ Dlow.Models = Dlow.Models || {};
                 var index = _.random(0, keys.length - 1);
                 return this.findRandomPost(key, subContent[keys[index]]);
             }
+        },
+
+        /** 
+         * @description Return a random post from either our subcontents or our
+         * posts, depending on the type of children this content node has.
+         * TODO: Remove this method instead and use findRandomPost() to set a 
+         * randomPost attribute on the model?
+         */
+        getRandomPost: function() {
+            var randomPost = null;
+            var randomPostIndex;
+            var posts = this.get("posts");
+            var subcontents = this.get("subcontents");
+
+            if (posts && posts.length) {
+                randomPostIndex = _.random(0, posts.length - 1);
+                randomPost = posts[randomPostIndex];
+            }
+            else if (subcontents && subcontents.length) {
+                randomPostIndex = _.random(0, subcontents.length - 1);
+                randomPost = subcontents[randomPostIndex].randomPost;
+            }
+
+            return randomPost;
         },
 
     });

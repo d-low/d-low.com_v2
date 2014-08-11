@@ -1,0 +1,76 @@
+<section id="contents-section">
+  <!-- 
+  TODO: Use partial for the contents navigation and determine when the nav
+  will be fixed vs. when it will be visual! 
+  -->
+  <nav class="contents-navigation clearfix" id="contents-navigation">
+    <ul class="list-unstyled">
+      <% for (var i = 0; i < this.model.get("contents").length; i++) { 
+          var content = this.model.get("contents").at(i);
+      %>
+
+          <li class="contents-navigation-item js-contents-navigation-item scaled-out">
+            <a class="contents-navigation-item-link button"
+              href="<%= content.get('url') %>">
+                <!-- 
+                TODO: This is very inaccessible.  Shouldn't we just have an image
+                here and show/hide/use it via JavaScript when necessary?  
+                -->
+                <span class="contents-navigation-item-image js-contents-navigation-item-image"
+                  data-nonmobilestyle="background-image: url(<%= content.getRandomPost().getRandomImageUrl() %>);">
+                </span>
+                <span class="contents-navigation-item-title">
+                  <%= content.get("path") %>
+                </span>
+            </a>
+          </li>
+
+      <% } %>
+    </ul>
+  </nav>
+</section>
+
+<section id="about-section" class="home-section container">
+  <div class="row">
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <div class="content-item-container about-image-container about-image-container-me">
+        <img src="/assets/mike_the_elf_236x400.jpg" 
+          data-original="/assets/mike_the_elf_236x400.jpg" 
+          class="img-responsive js-lazy-load js-lazy-load-immediate js-lazy-load-except-mobile" 
+          alt="Mike the elf" 
+          style="display: inline;">
+      </div>
+    </div>
+    <div class="col-sm-8 col-md-8 col-lg-8">
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <p class="copy first">
+            Welcome to the website of Mike DiLorenzo, husband, father, hiker, 
+            mountain biker, cross country skier, mountain enthusiast, craft beer 
+            drinker, front end web developer and overall nice guy. 
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-5 col-md-5 col-lg-5">
+          <p class="copy">
+            This website chronicles some of the more interesting things I've 
+            done:  hiking, traveling and landscaping. The site will be updated 
+            when I do cool  things, so don't be discouraged if it isn't updated
+            for a few months.   Eventually coolness will return. 
+          </p>
+        </div>
+        <div class="col-sm-7 col-md-7 col-lg-7">
+          <div class="content-item-container about-image-container about-image-container-family">
+            <img src="/assets/the_family.jpg" 
+              data-original="/assets/the_family.jpg" 
+              class="img-responsive js-lazy-load js-lazy-load-immediate" 
+              alt="The Family" 
+              style="display: block;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

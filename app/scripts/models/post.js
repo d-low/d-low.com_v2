@@ -11,33 +11,14 @@ Dlow.Models = Dlow.Models || {};
 
         /**
          * @description Pass a leaf node of the Dlow.Content structure as the
-         * attributes argument to the constructor and here if we have a path,
-         * we make a get request to obtain the index.html, and in the success
-         * handler, set other attributes that will be used to render a post.
+         * attributes argument to the constructor, set attributes we can get
+         * from the content data structure itself, and then get the index.html
+         * triggering a postready event in the sucess handler so that views 
+         * which need this HTML can wait until it's been retrieved.
          */
         initialize: function() {
-            if (this.get("path")) {
-                $.get(
-                    Dlow.DATA_PATH + this.get("path") + "/index.html",
-                    $.proxy(this.getIndex_success, this)
-                );
-            }
-        },
-
-        defaults: {
-        },
-
-        validate: function(attrs, options) {
-        },
-
-        parse: function(response, options)  {
-            return response;
-        },
-
-        getIndex_success: function(data, textStatus, jqXHR) {
             var node = Dlow.Models.Post.getNodeFromPath(this.get("path"));
 
-            this.set("html", data);
             this.set("name", node.name);
             this.set("title", 
                 node.name
@@ -55,14 +36,53 @@ Dlow.Models = Dlow.Models || {};
                     thumbs: node.thumbs
                 })
             );
-            
+
+            $.get(
+                Dlow.DATA_PATH + this.get("path") + "/index.html",
+                $.proxy(this.getIndex_success, this)
+            );
+        },
+
+        defaults: {
+        },
+
+        validate: function(attrs, options) {
+        },
+
+        parse: function(response, options)  {
+            return response;
+        },
+
+        getIndex_success: function(data, textStatus, jqXHR) {
+            this.set("html", data);
             this.trigger("postready");
         },
 
+        getRandomImage: function() {
+            var randomImage = null;
+            var images = this.get("images");
+
+            if (images && images.length) {
+                var randomImageIndex = _.random(0, images.length - 1);
+                randomImage = images.at(randomImageIndex);
+            }
+
+            return randomImage;
+        },
+
         /**
-         * @description TODO: Return a random image from our array of images.
+         * @description Return URL of random image to caller returning an empty
+         * string if one wasn't found to abstract this logic from the caller.
          */
-        getRandomImage: function() { 
+        getRandomImageUrl: function() { 
+            var randomImageUrl = "";
+            var randomImage = this.getRandomImage();
+
+            if (randomImage) {
+                randomImageUrl = randomImage.get("fullpath");
+            }
+
+            return randomImageUrl;
         }
     });
 

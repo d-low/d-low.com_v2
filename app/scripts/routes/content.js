@@ -13,12 +13,15 @@ Dlow.Routers = Dlow.Routers || {};
       },
 
       routes: {
-        "home": "home",
-        "content/*path": "content"
+        "content/*path": "content",
+        "*path":  "home"
       },
 
       home: function() {
-        // TODO: Render home page
+        this.view = new Dlow.Views.Home({
+          el: $("#content"),
+          model: new Dlow.Models.Home()
+        });
       },
 
       content: function(path) {
