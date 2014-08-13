@@ -15,7 +15,7 @@ Dlow.Models = Dlow.Models || {};
          * @param path
          * @param filename Image file name
          * @param thumbs Boolean value, if true, thumbnail is available at 
-         *Npath/thumbnails/<filename>
+         * path/thumbnails/<filename>
          */
         initialize: function() {
 

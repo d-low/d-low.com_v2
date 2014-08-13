@@ -18,6 +18,8 @@ Dlow.Views = Dlow.Views || {};
         events: {},
 
         initialize: function () {
+            // TODO: Do we need to listen to our model's change event?  Will 
+            // our model change once initiated?
             this.listenTo(this.model, 'change', this.render);
             this.render();
             // TODO: Initialize event handlers, bind plug-ins, etc.

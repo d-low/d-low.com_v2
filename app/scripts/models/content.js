@@ -27,6 +27,9 @@ Dlow.Models = Dlow.Models || {};
             var path = this.get("path");
             var content = this.getNodeFromPath(path);
 
+            // TODO: Why does the Content model have a content field?  This 
+            // seems like a poor name for the field.  This is actually a node 
+            // from the content data structure.  Should we call it that?
             this.set("content", content);
 
             if (this.areChildrenPosts()) {
@@ -86,6 +89,14 @@ Dlow.Models = Dlow.Models || {};
          * the path to the next level, and the name of the next level to our 
          * subcontents data member which will be an array of: { name, path, 
          * randomPost } obects.
+         * TODO: Instead of a custom data structure, should we instead have 
+         * a Contents collection instance?  If we did that then we could do 
+         * away with findRandomPost() and just use getRandomPost(), or rather
+         * rename findRandomPost() to getRandomPost() since the functionality
+         * in findRandomPost() doesn't dependon having posts or subcontents 
+         * populated.  If we did this then we'd need to pass a parameter to the 
+         * Content constructor as a flag to avoid calling setPosts() or 
+         * setSubContents().
          */
         setSubcontents: function() { 
             var path = this.get("path");
