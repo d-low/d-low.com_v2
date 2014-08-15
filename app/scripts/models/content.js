@@ -25,12 +25,9 @@ Dlow.Models = Dlow.Models || {};
             // not be set.
 
             var path = this.get("path");
-            var content = this.getNodeFromPath(path);
+            var node = this.getNodeFromPath(path);
 
-            // TODO: Why does the Content model have a content field?  This 
-            // seems like a poor name for the field.  This is actually a node 
-            // from the content data structure.  Should we call it that?
-            this.set("content", content);
+            this.set("node", node);
 
             if (this.areChildrenPosts()) {
                 this.setPosts();
@@ -51,14 +48,14 @@ Dlow.Models = Dlow.Models || {};
         },
 
         areChildrenPosts: function() { 
-            var content = this.get("content");
-            var keys = _.keys(content);
+            var node = this.get("node");
+            var keys = _.keys(node);
             var childrenArePosts = true;
 
             for (var i = 0; i < keys.length; i++) { 
                 var key = keys[i];
 
-                if (!Dlow.Models.Post.isPost(content[key])) {
+                if (!Dlow.Models.Post.isPost(node[key])) {
                     childrenArePosts = false;
                     break;
                 }
@@ -68,17 +65,17 @@ Dlow.Models = Dlow.Models || {};
         },
 
         isPost: function() { 
-            return Dlow.Models.Post.isPost(this.get("content"));
+            return Dlow.Models.Post.isPost(this.get("node"));
         },
 
         setPosts: function() { 
-            var content = this.get("content");
-            var keys = _.keys(content);
+            var node = this.get("node");
+            var keys = _.keys(node);
             var posts = [];
 
             for (var i = 0; i < keys.length; i++) { 
                 var key = keys[i];
-                posts.push(new Dlow.Models.Post(content[key]));
+                posts.push(new Dlow.Models.Post(node[key]));
             }
 
             this.set("posts", posts);
@@ -100,9 +97,9 @@ Dlow.Models = Dlow.Models || {};
          */
         setSubcontents: function() { 
             var path = this.get("path");
-            var content = this.get("content");
+            var node = this.get("node");
             var subcontents = this.get("subcontents");
-            var keys = _.keys(content);
+            var keys = _.keys(node);
 
             for (var i = 0; i < keys.length; i++) {
                 var key = keys[i];
@@ -111,7 +108,7 @@ Dlow.Models = Dlow.Models || {};
                     name: key,
                     path: path + "/" + key,
                     title: key.replace(/^\d+-/, '').replace(/-/g, ' '),
-                    randomPost: this.findRandomPost(key, content[key])
+                    randomPost: this.findRandomPost(key, node[key])
                 });
             }
 
