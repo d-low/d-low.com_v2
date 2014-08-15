@@ -1,5 +1,34 @@
 <h2 class="content-header">
-  <%= content.get("title") %>
+  <span class="content-header-title">
+    <%= content.get("title") %>
+  </span>
+  <nav class="content-header-title-nav">
+    <% 
+
+    for (var i = 0, titleNav = content.get("titleNav"); i < titleNav.length; i++) {
+      if (titleNav[i].url) {
+
+      %>
+
+        <a href="<%= titleNav[i].url %>"><%= titleNav[i].name %></a>
+        <span>/</span>
+
+      <%
+
+      }
+      else {
+
+      %>
+
+        <span><%= titleNav[i].name %></span>
+        
+      <%
+
+      }
+    }
+    
+    %>
+  </nav>
 </h2>
  
 <!-- TODO: Move this logic to the view and create new templates -->
