@@ -13,10 +13,12 @@ Dlow.Models = Dlow.Models || {};
          * @description Given a path to a node in the content data structure 
          * populate either the subcontents or posts depending on whether the 
          * node's children are leaf nodes or not.
+         * @param options.populateChildren When set to false, don't query child
+         * nodes to find posts or subcontents.
          */
         initialize: function() {
-            this.set("subcontents", []);
-            this.set("posts", []);
+            this.set("subcontents", null);
+            this.set("posts", null);
             this.set("url", "/#content/" + this.get("path"));
 
             // Parse the title creating a hash of parts to URLs so that we can
@@ -34,7 +36,7 @@ Dlow.Models = Dlow.Models || {};
                 // current part of the title, i.e. chnage "Colorado / Colorado 
                 // 2012" to "Colorado / 2012".
 
-                if (typeof title[i -1] !== "undefined") {
+                if (typeof title[i - 1] !== "undefined") {
                     name = name.replace(title[i - 1], "");
                 }
 
@@ -59,7 +61,7 @@ Dlow.Models = Dlow.Models || {};
             });
 
             this.set("title", title.join(" / "));
-            this.set("titleNav", titleNav);
+            this.set("titleNav", titleNav.length > 1 ? titleNav : []);
 
             // Find our content in the content data structure based on the path 
             // passed to us.  When called for the top level node our path will
@@ -69,6 +71,13 @@ Dlow.Models = Dlow.Models || {};
             var node = this.getNodeFromPath(path);
 
             this.set("node", node);
+
+            // We may be instantiated as a subcontent item in which case we do
+            // not want to query our children to get posts or subcontents.
+
+            if (this.get("populateChildren") === false) {
+                return;
+            }
 
             if (this.areChildrenPosts()) {
                 this.setPosts();
@@ -109,6 +118,10 @@ Dlow.Models = Dlow.Models || {};
             return Dlow.Models.Post.isPost(this.get("node"));
         },
 
+        /**
+         * @description TODO: Populate collection of posts when childn nodes
+         * are posts.
+         */
         setPosts: function() { 
             var node = this.get("node");
             var keys = _.keys(node);
@@ -123,35 +136,22 @@ Dlow.Models = Dlow.Models || {};
         },
 
         /** 
-         * When our children are not posts, then find a random post, save it, 
-         * the path to the next level, and the name of the next level to our 
-         * subcontents data member which will be an array of: { name, path, 
-         * randomPost } obects.
-         * TODO: Instead of a custom data structure, should we instead have 
-         * a Contents collection instance?  If we did that then we could do 
-         * away with findRandomPost() and just use getRandomPost(), or rather
-         * rename findRandomPost() to getRandomPost() since the functionality
-         * in findRandomPost() doesn't dependon having posts or subcontents 
-         * populated.  If we did this then we'd need to pass a parameter to the 
-         * Content constructor as a flag to avoid calling setPosts() or 
-         * setSubContents().
+         * @description When our children are not posts populate a collection 
+         * of content instances ensuring that they do NOT populate their child
+         * nodes.
          */
         setSubcontents: function() { 
-            var path = this.get("path");
             var node = this.get("node");
-            var subcontents = this.get("subcontents");
+            var subcontents = new Dlow.Collections.Contents();
             var keys = _.keys(node);
 
-            for (var i = 0; i < keys.length; i++) {
-                var key = keys[i];
-            
-                subcontents.push({
-                    name: key,
-                    path: path + "/" + key,
-                    title: key.replace(/^\d+-/, '').replace(/-/g, ' '),
-                    randomPost: this.findRandomPost(key, node[key])
+            _.each(keys, function(key) {
+                var subcontent = new Dlow.Models.Content({ 
+                    path: this.get("path") + "/" + key,
+                    populateChildren: false
                 });
-            }
+                subcontents.push(subcontent);
+            }, this);
 
             this.set("subcontents", subcontents);
         },
@@ -160,46 +160,36 @@ Dlow.Models = Dlow.Models || {};
          * @description Recurse through our nodes, selecting one at random at 
          * each level to follow, until we find a post that will be used as our 
          * random post for the current subcontent item.
-         * REVIEW: It is confusing to have a method titled findRandomPost() and
-         * a getRandomPost().  Shouldn't we just find a random post from either 
-         * our subcontents or posts, and set it as a member on the model?  Why
-         * do we have both methods?
+         * @param nodes
          */
-        findRandomPost: function(key, subContent) {
-            if (Dlow.Models.Post.isPost(subContent)) {
-                return new Dlow.Models.Post(subContent);
+        getRandomPost: function(node) {
+            
+            // When first called on a content model instance we won't have a
+            // node so we use the node of our instance.
+
+            if (!node) {
+                node = this.get("node");
+            }
+
+            if (Dlow.Models.Post.isPost(node)) {
+                
+                // If the first node is a post then all nodes at this level are
+                // posts and we select one at random and return a new post 
+                // instance for it.
+
+                return new Dlow.Models.Post({path: node["path"]});
             }
             else {
-                var keys = _.keys(subContent);
-                var index = _.random(0, keys.length - 1);
-                return this.findRandomPost(key, subContent[keys[index]]);
+
+                // If the node is not a post then get an array of it's child 
+                // nodes, select one at random, and continue recursing until we
+                // end at a node that is a post.
+
+                var nodes = _.values(node);
+                var index = _.random(0, nodes.length - 1);
+                return this.getRandomPost(nodes[index]);
             }
-        },
-
-        /** 
-         * @description Return a random post from either our subcontents or our
-         * posts, depending on the type of children this content node has.
-         * TODO: Remove this method instead and use findRandomPost() to set a 
-         * randomPost attribute on the model?
-         */
-        getRandomPost: function() {
-            var randomPost = null;
-            var randomPostIndex;
-            var posts = this.get("posts");
-            var subcontents = this.get("subcontents");
-
-            if (posts && posts.length) {
-                randomPostIndex = _.random(0, posts.length - 1);
-                randomPost = posts[randomPostIndex];
-            }
-            else if (subcontents && subcontents.length) {
-                randomPostIndex = _.random(0, subcontents.length - 1);
-                randomPost = subcontents[randomPostIndex].randomPost;
-            }
-
-            return randomPost;
-        },
-
+        }
     });
 
     _.extend(Dlow.Models.Content.prototype, Dlow.Models.Mixins);

@@ -1,4 +1,5 @@
 <h2 class="content-header">
+  <!-- TODO: The breadcrumb conflicts with the header title, we need one or the other. -->
   <span class="content-header-title">
     <%= content.get("title") %>
   </span>
@@ -39,16 +40,16 @@
 <% } else { %>
   <ul class="list-unstyled sub-content-items">
     <% for (var i = 0, subcontents = content.get("subcontents"); i < subcontents.length; i++) { 
-        var randomImage = subcontents[i].randomPost.getRandomImage();
+        var randomImage = subcontents.at(i).getRandomPost().getRandomImage();
     %>
       <li class="sub-content-item content-item-container">
-        <a class="sub-content-link" href="#content/<%= subcontents[i].path %>">
+        <a class="sub-content-link" href="#content/<%= subcontents.at(i).get('path') %>">
           <img alt="<%= !_.isNull(randomImage) ? randomImage.get('caption') : 'REVIEW: No images available!' %>"
             class="img-responsive js-lazy-load js-lazy-load-immediate"
             data-original="TODO: Use src value, and set ot blank.gif, when we're lazy loading images" 
             src="<%= !_.isNull(randomImage) ? randomImage.get('fullpath') : 'REVIEW: No images available!' %>" /> 
           <span class="sub-content-link-title">
-            <%= subcontents[i].title %>
+            <%= subcontents.at(i).get("title") %>
           </span>
         </a>
       </li>
