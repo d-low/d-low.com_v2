@@ -29,6 +29,8 @@ Dlow.Models = Dlow.Models || {};
             var title = [];
             var titleNav = [];
 
+            // REVIEW: Move this to a new method to make the constructor more 
+            // concise.
             parts.forEach(function(part, i) {
                 var name = part.replace(/^\d\d-/, "").replace(/[-_]/g, " ");
                 
@@ -61,6 +63,9 @@ Dlow.Models = Dlow.Models || {};
             });
 
             this.set("title", title.join(" / "));
+
+            // REVIEW: Why do we only save the title nav if there is more than
+            // one part of the path?  This logic seems fragile. 
             this.set("titleNav", titleNav.length > 1 ? titleNav : []);
 
             // Find our content in the content data structure based on the path 
@@ -119,7 +124,7 @@ Dlow.Models = Dlow.Models || {};
         },
 
         /**
-         * @description TODO: Populate collection of posts when childn nodes
+         * @description TODO: Populate collection of posts when child nodes
          * are posts.
          */
         setPosts: function() { 
@@ -173,9 +178,8 @@ Dlow.Models = Dlow.Models || {};
 
             if (Dlow.Models.Post.isPost(node)) {
                 
-                // If the first node is a post then all nodes at this level are
-                // posts and we select one at random and return a new post 
-                // instance for it.
+                // If the node is a post then we've hit our recursive base case
+                // so we return a new post instance for the selected node.
 
                 return new Dlow.Models.Post({path: node["path"]});
             }
