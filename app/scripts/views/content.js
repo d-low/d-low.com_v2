@@ -7,7 +7,9 @@ Dlow.Views = Dlow.Views || {};
 
     Dlow.Views.Content = Backbone.View.extend({
 
+        templateContentHeader: JST['app/scripts/templates/content_header.ejs'],
         template: JST['app/scripts/templates/content.ejs'],
+        templatePost: JST['app/scripts/templates/post.ejs'],
 
         tagName: 'div',
 
@@ -26,7 +28,31 @@ Dlow.Views = Dlow.Views || {};
         },
 
         render: function () {
-            this.$el.html(this.template({content: this.model}));
+            var html = [];
+            var posts = this.model.get("posts");
+
+            html.push(
+                this.templateContentHeader({ model: this.model })
+            );
+
+            if (posts && posts.length) {
+
+                // TODO: We need to call the template once the index.html has 
+                // been retrieved.
+                
+                posts.each(function(post) {
+                    html.push(
+                        this.templatePost({ model: post })
+                    );
+                }, this);
+            }
+            else {
+                html.push(
+                    this.template({ content: this.model })
+                );
+            }
+
+            this.$el.html(html.join(''));
         }
 
     });
