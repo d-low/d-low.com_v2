@@ -124,13 +124,13 @@ Dlow.Models = Dlow.Models || {};
         },
 
         /**
-         * @description TODO: Populate collection of posts when child nodes
-         * are posts.
+         * @description Populate collection of posts when child nodes are 
+         * posts.
          */
         setPosts: function() { 
             var node = this.get("node");
             var keys = _.keys(node);
-            var posts = [];
+            var posts = new Dlow.Collections.Posts();
 
             for (var i = 0; i < keys.length; i++) { 
                 var key = keys[i];
