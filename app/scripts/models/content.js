@@ -20,53 +20,7 @@ Dlow.Models = Dlow.Models || {};
             this.set("subcontents", null);
             this.set("posts", null);
             this.set("url", "/#content/" + this.get("path"));
-
-            // Parse the title creating a hash of parts to URLs so that we can
-            // display a breadcrumb letting the user know where they are and 
-            // making each part an anchor for easier navigation.
-    
-            var parts = this.get("path").split("/");
-            var title = [];
-            var titleNav = [];
-
-            // REVIEW: Move this to a new method to make the constructor more 
-            // concise.
-            parts.forEach(function(part, i) {
-                var name = part.replace(/^\d\d-/, "").replace(/[-_]/g, " ");
-                
-                // Remove the name of the previous part of the title from the
-                // current part of the title, i.e. chnage "Colorado / Colorado 
-                // 2012" to "Colorado / 2012".
-
-                if (typeof title[i - 1] !== "undefined") {
-                    name = name.replace(title[i - 1], "");
-                }
-
-                title.push(name);
-
-                // Now create the name/url pairs that will be used on the desktop
-                // site for a breadcrumb.
-
-                var url = "";
-
-                if (i == 0 && i != parts.length - 1) {
-                    url = "/#content/" + parts[0];
-                }
-                else if (i != parts.length - 1) {
-                    url = "/#content/" + parts.slice(0, i + 1).join("/");
-                }
-
-                titleNav.push({
-                    name: name,
-                    url: url
-                });
-            });
-
-            this.set("title", title.join(" / "));
-
-            // REVIEW: Why do we only save the title nav if there is more than
-            // one part of the path?  This logic seems fragile. 
-            this.set("titleNav", titleNav.length > 1 ? titleNav : []);
+            this.setTitle();
 
             // Find our content in the content data structure based on the path 
             // passed to us.  When called for the top level node our path will
@@ -159,6 +113,54 @@ Dlow.Models = Dlow.Models || {};
             }, this);
 
             this.set("subcontents", subcontents);
+        },
+
+        setTitle: function() { 
+
+            // Parse the title creating a hash of parts to URLs so that we can
+            // display a breadcrumb letting the user know where they are and 
+            // making each part an anchor for easier navigation.
+    
+            var parts = this.get("path").split("/");
+            var title = [];
+            var titleNav = [];
+
+            parts.forEach(function(part, i) {
+                var name = part.replace(/^\d\d-/, "").replace(/[-_]/g, " ");
+                
+                // Remove the name of the previous part of the title from the
+                // current part of the title, i.e. chnage "Colorado / Colorado 
+                // 2012" to "Colorado / 2012".
+
+                if (typeof title[i - 1] !== "undefined") {
+                    name = name.replace(title[i - 1], "");
+                }
+
+                title.push(name);
+
+                // Now create the name/url pairs that will be used on the desktop
+                // site for a breadcrumb.
+
+                var url = "";
+
+                if (i == 0 && i != parts.length - 1) {
+                    url = "/#content/" + parts[0];
+                }
+                else if (i != parts.length - 1) {
+                    url = "/#content/" + parts.slice(0, i + 1).join("/");
+                }
+
+                titleNav.push({
+                    name: name,
+                    url: url
+                });
+            });
+
+            this.set("title", title.join(" / "));
+
+            // REVIEW: Why do we only save the title nav if there is more than
+            // one part of the path?  This logic seems fragile. 
+            this.set("titleNav", titleNav.length > 1 ? titleNav : []);
         },
 
         /** 
