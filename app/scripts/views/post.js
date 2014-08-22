@@ -18,10 +18,15 @@ Dlow.Views = Dlow.Views || {};
         events: {},
 
         initialize: function () {
-            this.listenTo(this.model, 'change', this.render);
+            this.listenTo(this.model, "ready", this.render);
+            
+            if (this.model.isReady()) {
+                this.render();
+            }
         },
 
         render: function () {
+            this.model.stopListening();
             this.$el.html(this.template(this.model.toJSON()));
         }
 

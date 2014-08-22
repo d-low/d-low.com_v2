@@ -55,7 +55,7 @@ Dlow.Models = Dlow.Models || {};
 
         getIndex_success: function(data, textStatus, jqXHR) {
             this.set("html", data);
-            this.trigger("postready");
+            this.trigger("ready");
         },
 
         getRandomImage: function() {
@@ -83,6 +83,15 @@ Dlow.Models = Dlow.Models || {};
             }
 
             return randomImageUrl;
+        },
+
+        /**
+         * @description Method used by caller to check to see whether this post
+         * instance is ready or not.  A post instance is ready if we've loaded
+         * our HTML successfully.
+         */
+        isReady: function() { 
+            return !!this.get("html");
         }
     });
 

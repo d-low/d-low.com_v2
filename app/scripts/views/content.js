@@ -20,14 +20,18 @@ Dlow.Views = Dlow.Views || {};
         events: {},
 
         initialize: function () {
-            // TODO: Do we need to listen to our model's change event?  Will 
-            // our model change once initiated?
-            this.listenTo(this.model, 'change', this.render);
-            this.render();
+            this.listenTo(this.model, "ready", this.render);
+
+            if (this.model.isReady()) {
+                this.render();
+            }
+
             // TODO: Initialize event handlers, bind plug-ins, etc.
         },
 
         render: function () {
+            this.model.stopListening();
+
             var html = [];
             var posts = this.model.get("posts");
 
@@ -36,10 +40,6 @@ Dlow.Views = Dlow.Views || {};
             );
 
             if (posts && posts.length) {
-
-                // TODO: We need to call the template once the index.html has 
-                // been retrieved.
-                
                 posts.each(function(post) {
                     html.push(
                         this.templatePost({ model: post })

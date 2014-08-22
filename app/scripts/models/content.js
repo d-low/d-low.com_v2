@@ -35,6 +35,7 @@ Dlow.Models = Dlow.Models || {};
             // not want to query our children to get posts or subcontents.
 
             if (this.get("populateChildren") === false) {
+                this.trigger("ready");
                 return;
             }
 
@@ -78,6 +79,38 @@ Dlow.Models = Dlow.Models || {};
         },
 
         /**
+         * @description Return true to the caller if we're ready.  We're ready
+         * when we are not populating children, or when we're populating 
+         * children, when they're all ready.
+         */
+        isReady: function() {
+            var fIsCollectionReady = function(collection) {
+                var isCollectionReady = false;
+
+                for (var i = 0; i < collection.length; i++) {
+                    if (!collection.at(i).isReady()) {
+                        break;
+                    }
+                    else if (i == collection.length - 1) {
+                        isCollectionReady = true;
+                    }
+                }
+
+                return isCollectionReady;
+            };
+
+            if (this.get("populateChildren") === false) {
+                return true;
+            }
+            else if (this.areChildrenPosts()) {
+                return fIsCollectionReady(this.get("posts"));
+            }
+            else if (!this.isPost()) {
+                return fIsCollectionReady(this.get("subcontents"));
+            }
+        },
+
+        /**
          * @description Populate collection of posts when child nodes are 
          * posts.
          */
@@ -88,6 +121,14 @@ Dlow.Models = Dlow.Models || {};
 
             for (var i = 0; i < keys.length; i++) { 
                 var key = keys[i];
+                var post = new Dlow.Models.Post(node[key]);
+                
+                post.on("ready", function() { 
+                    if (this.isReady()) {
+                        this.trigger("ready");
+                    }
+                }, this);
+
                 posts.push(new Dlow.Models.Post(node[key]));
             }
 
@@ -109,10 +150,18 @@ Dlow.Models = Dlow.Models || {};
                     path: this.get("path") + "/" + key,
                     populateChildren: false
                 });
+
+                subcontent.on("ready", function() { 
+                    if (this.isReady()) {
+                        this.trigger("ready");
+                    }
+                }, this);
+
                 subcontents.push(subcontent);
             }, this);
 
             this.set("subcontents", subcontents);
+            this.trigger("ready");
         },
 
         setTitle: function() { 
