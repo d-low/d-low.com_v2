@@ -28,13 +28,19 @@ Dlow.Routers = Dlow.Routers || {};
         if (Dlow.Models.Post.isPost(null, path)) {
           this.view = new Dlow.Views.Post({
             el: $("#content"),
-            model: new Dlow.Models.Post({path: path})
+            model: {
+              post: new Dlow.Models.Post({path: path}),
+              home: new Dlow.Models.Home()
+            }
           });
         }
         else {
           this.view = new Dlow.Views.Content({
             el: $("#content"),
-            model: new Dlow.Models.Content({path: path})
+            model: {
+              content: new Dlow.Models.Content({path: path}),
+              home: new Dlow.Models.Home()
+            }
           });
         }
       }

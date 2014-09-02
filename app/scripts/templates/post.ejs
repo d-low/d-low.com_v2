@@ -1,14 +1,14 @@
 <section class="post js-post content-item-container">
   <h3 class="post-title">
-    <%= (model.get("title") || "--") + ", " + (model.get("date") || "--") %>
+    <%= (post.get("title") || "--") + ", " + (post.get("date") || "--") %>
   </h3>
   <div class="post-content">
     <div class="js-post-content-togglable">
-      <%= model.get("html") || "--" %>
+      <%= post.get("html") || "--" %>
     </div>
   </div>
   <ul class="post-images js-post-images list-unstyled uninitialized">
-    <% model.get("images").each(function(image, index) { %>
+    <% post.get("images").each(function(image, index) { %>
       <li class="post-image-container">
         <a class="js-post-image-link"
           data-itemnum="<%= index %>"

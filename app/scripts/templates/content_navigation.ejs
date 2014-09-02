@@ -1,0 +1,44 @@
+<%
+
+var numberToOrdinal = function(i) {
+  var j = i % 10,
+      k = i % 100;
+  if (j == 1 && k != 11) {
+    return i + "st";
+  }
+  if (j == 2 && k != 12) {
+    return i + "nd";
+  }
+  if (j == 3 && k != 13) {
+    return i + "rd";
+  }
+  return i + "th";
+};
+
+%>
+<nav class="content-navigation clearfix" id="content-navigation">
+  <ul class="list-unstyled">
+    <li class="content-navigation-item js-content-navigation-item 1st scaled-out">
+      <a class="content-navigation-item-link button" href="#">
+        <span class="content-navigation-item-image js-content-navigation-item-image" 
+              data-nonmobilestyle="background-image: url(/);">
+        </span>
+        <span class="content-navigation-item-title">
+          What's New?
+        </span>
+      </a>
+    </li>
+    <% for (var i = 0, count = 1, contents = home.get("contents"); i < contents.length; i++, count++) { %>
+      <li class="content-navigation-item js-content-navigation-item <%= numberToOrdinal(count) %> scaled-out">
+        <a class="content-navigation-item-link button" href="#content/<%= contents.at(i).get('path') %>">
+          <span class="content-navigation-item-image js-content-navigation-item-image"
+              data-nonmobilestyle="background-image: url(<%= contents.at(i).getRandomPost().getRandomImage().get('fullpath') %>);">
+          </span>
+          <span  class="content-navigation-item-title">
+            <%= contents.at(i).get("title") %>
+          </span>
+        </a>
+      </li>
+    <% } %>
+  </ul>
+</nav>

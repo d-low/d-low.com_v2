@@ -10,6 +10,7 @@ Dlow.Views = Dlow.Views || {};
         templateContentHeader: JST['app/scripts/templates/content_header.ejs'],
         template: JST['app/scripts/templates/content.ejs'],
         templatePost: JST['app/scripts/templates/post.ejs'],
+        templateContentNavigation: JST['app/scripts/templates/content_navigation.ejs'],
 
         tagName: 'div',
 
@@ -20,9 +21,9 @@ Dlow.Views = Dlow.Views || {};
         events: {},
 
         initialize: function () {
-            this.listenTo(this.model, "ready", this.render);
+            this.listenTo(this.model.content, "ready", this.render);
 
-            if (this.model.isReady()) {
+            if (this.model.content.isReady()) {
                 this.render();
             }
 
@@ -30,27 +31,31 @@ Dlow.Views = Dlow.Views || {};
         },
 
         render: function () {
-            this.model.stopListening();
+            this.model.content.stopListening();
 
             var html = [];
-            var posts = this.model.get("posts");
+            var posts = this.model.content.get("posts");
 
             html.push(
-                this.templateContentHeader({ model: this.model })
+                this.templateContentHeader({ model: this.model.content })
             );
 
             if (posts && posts.length) {
                 posts.each(function(post) {
                     html.push(
-                        this.templatePost({ model: post })
+                        this.templatePost({ post: post })
                     );
                 }, this);
             }
             else {
                 html.push(
-                    this.template({ content: this.model })
+                    this.template({ content: this.model.content })
                 );
             }
+
+            html.push(
+                this.templateContentNavigation({ home: this.model.home })
+            );
 
             this.$el.html(html.join(''));
         }
