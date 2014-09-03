@@ -103,6 +103,16 @@ def directory_hash(path, name=nil)
   return data
 end
 
+def most_recent_post_path(path)
+  newest_post = Dir[path + "/**/index.html"].
+    sort_by {|f| File.mtime(f)}.
+    reverse[0]
+
+  newest_post_path = File.dirname(newest_post)
+
+  newest_post_path.gsub(/^\.\//, "")
+end
+
 content = directory_hash(ARGV[0])
 
 # When invoked in the current directory the first key of the directory hash
@@ -110,6 +120,7 @@ content = directory_hash(ARGV[0])
 # themselves.
 content = content[content.keys[0]]
 
-# Output the JSON as a JavaScript variable for use on the client side.
+# Output results for use on the client side.
 puts "Dlow.Content = #{content.to_json};"
+puts "Dlow.mostRecentPostPath = '#{most_recent_post_path(ARGV[0])}';"
 
