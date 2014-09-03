@@ -28,34 +28,41 @@ var numberToOrdinal = function(i) {
         </span>
       </a>
     </li>
-    <% for (var i = 0, count = 1, contents = home.get("contents"); i < contents.length; i++, count++) { %>
+    <% for (var i = 0, contents = home.get("contents"); i < contents.length; i++) { %>
       <% 
+      
+      // TODO: We may have a random post that does not have any any images. In
+      // this case should we continue finding random posts until we find one
+      // that has an image?  Or should we isolate that from the view better by
+      // encapsulating that logic in the content model?
 
-      var randomPost = contents.at(i).getRandomPost();
+      var content = contents.at(i);
+      var randomPost = content ? content.getRandomPost() : null;
       var randomImage = randomPost ? randomPost.getRandomImage() : null;
       var randomImagePath = randomImage ? randomImage.get("fullpath") : "";
 
-      if (!randomPost) { 
-        console.log("No random post found for " + contents.at("i").get("title"));
+      if (!content) {
+        console.log("No content found for contents.at(" + i + ")");
       }
-      
-      if (!randomImage) {
-        console.log("No random image found for " + contents.at("i").get("title"));
+      else if (!randomPost) { 
+        console.log("No random post found for " + content.get("title"));
       }
-
-      if (!randomImagePath) {
-        console.log("No random image path found for " + contents.at("i").get("title"));
+      else if (!randomImage) {
+        console.log("No random image found for " + content.get("title"));
+      }
+      else if (!randomImagePath) {
+        console.log("No random image path found for " + content.get("title"));
       }
 
       %>
 
-      <li class="content-navigation-item js-content-navigation-item <%= numberToOrdinal(count) %> scaled-out">
-        <a class="content-navigation-item-link button" href="#content/<%= contents.at(i).get('path') %>">
+      <li class="content-navigation-item js-content-navigation-item <%= numberToOrdinal(i + 2) %> scaled-out">
+        <a class="content-navigation-item-link button" href="#content/<%= content.get('path') %>">
           <img alt=""
                class="content-navigation-item-image js-content-navigation-item-image"
                src="<%= randomImagePath %>" />
           <span  class="content-navigation-item-title">
-            <%= contents.at(i).get("title") %>
+            <%= content.get("title") %>
           </span>
         </a>
       </li>
