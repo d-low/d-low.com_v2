@@ -129,7 +129,7 @@ Dlow.Models = Dlow.Models || {};
                     }
                 }, this);
 
-                posts.push(new Dlow.Models.Post(node[key]));
+                posts.push(post);
             }
 
             this.set("posts", posts);
