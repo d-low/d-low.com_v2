@@ -16,7 +16,7 @@
           <img alt="<%= image.get('caption') %>"
               class="post-image js-post-image js-lazy-load"
               title="<%= image.get('caption') %>"
-              src="<%= image.get('thumbnail') %>"
+              src="<%= image.get('thumbnail') ||  image.get('fullpath') %>"
               data-original="TODO: Use src value, and set to blank.gif, when we're lazy loading images"
               data-largeimage="<%= image.get('fullpath') %>" />
           <span class="post-image-caption">
