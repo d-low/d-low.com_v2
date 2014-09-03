@@ -29,10 +29,30 @@ var numberToOrdinal = function(i) {
       </a>
     </li>
     <% for (var i = 0, count = 1, contents = home.get("contents"); i < contents.length; i++, count++) { %>
+      <% 
+
+      var randomPost = contents.at(i).getRandomPost();
+      var randomImage = randomPost ? randomPost.getRandomImage() : null;
+      var randomImagePath = randomImage ? randomImage.get("fullpath") : "";
+
+      if (!randomPost) { 
+        console.log("No random post found for " + contents.at("i").get("title"));
+      }
+      
+      if (!randomImage) {
+        console.log("No random image found for " + contents.at("i").get("title"));
+      }
+
+      if (!randomImagePath) {
+        console.log("No random image path found for " + contents.at("i").get("title"));
+      }
+
+      %>
+
       <li class="content-navigation-item js-content-navigation-item <%= numberToOrdinal(count) %> scaled-out">
         <a class="content-navigation-item-link button" href="#content/<%= contents.at(i).get('path') %>">
           <span class="content-navigation-item-image js-content-navigation-item-image"
-              data-nonmobilestyle="background-image: url(<%= contents.at(i).getRandomPost().getRandomImage().get('fullpath') %>);">
+              data-nonmobilestyle="background-image: url(<%= randomImagePath %>);">
           </span>
           <span  class="content-navigation-item-title">
             <%= contents.at(i).get("title") %>
