@@ -7,6 +7,8 @@ Dlow.Models = Dlow.Models || {};
 
   Dlow.Models.Mixins = {
 
+    CONTENT_ROOT: "data/",
+
     /** 
      * @description Given a path to a node in our content data structure, parse
      * the path, and then iterate to the specified node, returning it to the

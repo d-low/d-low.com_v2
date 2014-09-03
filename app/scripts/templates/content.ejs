@@ -6,7 +6,7 @@
       <a class="sub-content-link" href="#content/<%= subcontents.at(i).get('path') %>">
         <img alt="<%= !_.isNull(randomImage) ? randomImage.get('caption') : 'REVIEW: No images available!' %>"
           class="img-responsive js-lazy-load js-lazy-load-immediate"
-          data-original="TODO: Use src value, and set ot blank.gif, when we're lazy loading images" 
+          data-original="TODO: Use src value, and set to blank.gif, when we're lazy loading images" 
           src="<%= !_.isNull(randomImage) ? randomImage.get('fullpath') : 'REVIEW: No images available!' %>" /> 
         <span class="sub-content-link-title">
           <%= subcontents.at(i).get("title") %>

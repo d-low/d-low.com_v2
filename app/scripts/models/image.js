@@ -16,18 +16,18 @@ Dlow.Models = Dlow.Models || {};
          * @param filename Image file name
          * @param thumbs Boolean value, if true, thumbnail is available at 
          * path/thumbnails/<filename>
+         * TODO: Rename fields.  Having a fullpath and thumbnail field isn't consistent!
          */
-        initialize: function() {
-
-            // TODO: Add CONTENT_ROOT to Dlow.Models.Mixins as constant and 
-            // prefix paths with it!
-            
-            this.set("fullpath", this.get("path") + "/" + this.get("filename"));
+        initialize: function() { 
+            this.set(
+                "fullpath", 
+                Dlow.Models.Mixins.CONTENT_ROOT + this.get("path") + "/" + this.get("filename")
+            );
 
             if (this.get("thumbs")) {
                 this.set(
                     "thumbnail", 
-                    this.get("path") + "/thumbnails/" + this.get("filename")
+                    Dlow.Models.Mixins.CONTENT_ROOT + this.get("path") + "/thumbnails/" + this.get("filename")
                 );
             }
 

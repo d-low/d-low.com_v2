@@ -12,12 +12,9 @@
           <li class="contents-navigation-item js-contents-navigation-item scaled-out">
             <a class="contents-navigation-item-link button"
               href="<%= content.get('url') %>">
-                <!-- 
-                TODO: This is very inaccessible.  Shouldn't we just have an image
-                here and show/hide/use it via JavaScript when necessary?  
-                -->
-                <span class="contents-navigation-item-image js-contents-navigation-item-image"
-                  data-nonmobilestyle="background-image: url(<%=  content.getRandomPost().getRandomImageUrl() %>);">
+                <img alt=""
+                  class="contents-navigation-item-image js-contents-navigation-item-image"
+                  src="<%=  content.getRandomPost().getRandomImageUrl() %>" />
                 </span>
                 <span class="contents-navigation-item-title">
                   <%= content.get("title") %>
@@ -38,7 +35,7 @@
           data-original="/assets/mike_the_elf_236x400.jpg" 
           class="img-responsive js-lazy-load js-lazy-load-immediate js-lazy-load-except-mobile" 
           alt="Mike the elf" 
-          style="display: inline;">
+          style="display: inline;" />
       </div>
     </div>
     <div class="col-sm-8 col-md-8 col-lg-8">
