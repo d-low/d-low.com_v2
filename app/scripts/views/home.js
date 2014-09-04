@@ -8,6 +8,7 @@ Dlow.Views = Dlow.Views || {};
     Dlow.Views.Home = Backbone.View.extend({
 
         template: JST['app/scripts/templates/home.ejs'],
+        templateContentNavigation: JST['app/scripts/templates/content_navigation.ejs'],
 
         tagName: 'div',
 
@@ -25,7 +26,21 @@ Dlow.Views = Dlow.Views || {};
         },
 
         render: function () {
-            this.$el.html(this.template({home: this.model}));
+            var html = [];
+
+            html.push(
+                '<section id="contents-section">',
+                    this.templateContentNavigation({ home: this.model }),
+                '</section>'
+            );
+            
+            html.push(
+                this.template()
+            );
+
+            this.$el.html(
+                html.join('')
+            );
         }
 
     });

@@ -1,32 +1,3 @@
-<section id="contents-section">
-  <!-- 
-  TODO: Use partial for the contents navigation and determine when the nav
-  will be fixed vs. when it will be visual! 
-  -->
-  <nav class="contents-navigation clearfix" id="contents-navigation">
-    <ul class="list-unstyled">
-      <% for (var i = 0; i < this.model.get("contents").length; i++) { 
-          var content = this.model.get("contents").at(i);
-      %>
-
-          <li class="contents-navigation-item js-contents-navigation-item scaled-out">
-            <a class="contents-navigation-item-link button"
-              href="<%= content.get('url') %>">
-                <img alt=""
-                  class="contents-navigation-item-image js-contents-navigation-item-image"
-                  src="<%=  content.getRandomPost().getRandomImageUrl() %>" />
-                </span>
-                <span class="contents-navigation-item-title">
-                  <%= content.get("title") %>
-                </span>
-            </a>
-          </li>
-
-      <% } %>
-    </ul>
-  </nav>
-</section>
-
 <section id="about-section" class="home-section container">
   <div class="row">
     <div class="col-sm-4 col-md-4 col-lg-4">
@@ -70,4 +41,3 @@
     </div>
   </div>
 </section>
-
