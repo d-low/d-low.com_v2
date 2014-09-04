@@ -49,7 +49,7 @@ def directory_hash(path, name=nil)
   # do not already exist.
 
   index_files.each do |index_file| 
-    post_path = File.dirname(index_file)
+    post_path = File.dirname(index_file).gsub(/^\.\//, "")
     post_path_parts = post_path.split('/') # TODO: Use file system specific separator
 
     post = nil
@@ -114,11 +114,6 @@ def most_recent_post_path(path)
 end
 
 content = directory_hash(ARGV[0])
-
-# When invoked in the current directory the first key of the directory hash
-# will be ".", so we remove that since we're intersted in the directories 
-# themselves.
-content = content[content.keys[0]]
 
 # Output results for use on the client side.
 puts "Dlow.Content = #{content.to_json};"
