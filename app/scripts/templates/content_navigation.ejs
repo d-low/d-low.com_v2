@@ -15,14 +15,17 @@ var numberToOrdinal = function(i) {
   return i + "th";
 };
 
+var mostRecentPost = home.get("mostRecentPost");
+var mostRecentPostRandomImage = mostRecentPost.getRandomImage();
+
 %>
 <nav class="content-navigation clearfix" id="content-navigation">
   <ul class="list-unstyled">
     <li class="content-navigation-item js-content-navigation-item 1st scaled-out">
-      <a class="content-navigation-item-link button" href="#">
-        <img alt=""
+      <a class="content-navigation-item-link button" href="#content/<%= mostRecentPost.get('path') %>">
+        <img alt="<%= mostRecentPostRandomImage.get('title') %>"
              class="content-navigation-item-image js-content-navigation-item-image" 
-             src="" />
+             src="<%= mostRecentPostRandomImage.get('fullpath') %>" />
         <span class="content-navigation-item-title">
           What's New?
         </span>
