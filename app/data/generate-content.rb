@@ -79,7 +79,7 @@ def directory_hash(path, name=nil)
     }
 
     # With the post data created now iterate through the post parts creating a
-    # has for each parent directory that doesn't yet exist and then add the
+    # hash for each parent directory that doesn't yet exist and then add the
     # post data when we've created all the parents.
     
     post_parent = data
