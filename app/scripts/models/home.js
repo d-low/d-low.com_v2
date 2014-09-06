@@ -3,32 +3,32 @@
 Dlow.Models = Dlow.Models || {};
 
 (function () {
-    'use strict';
+  'use strict';
 
-    Dlow.Models.Home = Backbone.Model.extend({
+  Dlow.Models.Home = Backbone.Model.extend({
 
-        url: '',
+    url: '',
 
-        initialize: function() {
-            var contents = new Dlow.Collections.Contents();
+    initialize: function() {
+      var contents = new Dlow.Collections.Contents();
 
-            for (var path in Dlow.Content) {
-                contents.push(new Dlow.Models.Content({path: path}));
-            }
+      for (var path in Dlow.Content) {
+        contents.push(new Dlow.Models.Content({path: path}));
+      }
 
-            this.set("contents", contents);
-            this.set("mostRecentPost", new Dlow.Models.Post({path: Dlow.mostRecentPostPath}));
-        },
+      this.set("contents", contents);
+      this.set("mostRecentPost", new Dlow.Models.Post({path: Dlow.mostRecentPostPath}));
+    },
 
-        defaults: {
-        },
+    defaults: {
+    },
 
-        validate: function(attrs, options) {
-        },
+    validate: function(attrs, options) {
+    },
 
-        parse: function(response, options)  {
-            return response;
-        }
-    });
+    parse: function(response, options)  {
+      return response;
+    }
+  });
 
 })();

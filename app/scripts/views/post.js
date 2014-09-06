@@ -3,44 +3,44 @@
 Dlow.Views = Dlow.Views || {};
 
 (function () {
-    'use strict';
+  'use strict';
 
-    Dlow.Views.Post = Backbone.View.extend({
+  Dlow.Views.Post = Backbone.View.extend({
 
-        template: JST['app/scripts/templates/post.ejs'],
-        templateContentNavigation: JST['app/scripts/templates/content_navigation.ejs'],
+    template: JST['app/scripts/templates/post.ejs'],
+    templateContentNavigation: JST['app/scripts/templates/content_navigation.ejs'],
 
-        tagName: 'div',
+    tagName: 'div',
 
-        id: '',
+    id: '',
 
-        className: '',
+    className: '',
 
-        events: {},
+    events: {},
 
-        initialize: function () {
-            this.listenTo(this.model.post, "ready", this.render);
-            
-            if (this.model.post.isReady()) {
-                this.render();
-            }
-        },
+    initialize: function () {
+      this.listenTo(this.model.post, "ready", this.render);
+      
+      if (this.model.post.isReady()) {
+        this.render();
+      }
+    },
 
-        render: function () {
-            var html = [];
+    render: function () {
+      var html = [];
 
-            this.model.post.stopListening();
+      this.model.post.stopListening();
 
-            html.push(
-                this.template({post: this.model.post }) // TODO: Rename parameter
-            );
-            html.push(
-                this.templateContentNavigation({ home: this.model.home })
-            );
+      html.push(
+        this.template({post: this.model.post }) // TODO: Rename parameter
+      );
+      html.push(
+        this.templateContentNavigation({ home: this.model.home })
+      );
 
-            this.$el.html(html.join(''));
-        }
+      this.$el.html(html.join(''));
+    }
 
-    });
+  });
 
 })();

@@ -3,12 +3,12 @@
 Dlow.Collections = Dlow.Collections || {};
 
 (function () {
-    'use strict';
+  'use strict';
 
-    Dlow.Collections.Contents = Backbone.Collection.extend({
+  Dlow.Collections.Contents = Backbone.Collection.extend({
 
-        model: Dlow.Models.Content
+    model: Dlow.Models.Content
 
-    });
+  });
 
 })();
