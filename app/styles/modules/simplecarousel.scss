@@ -1,0 +1,141 @@
+.simple-carousel {
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+  border: 2% solid transparent;
+  padding: 5px;
+
+  &.loading { 
+    visibility: hidden !important;
+  }
+
+  &:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+  }
+
+  .simple-carousel-nav {
+    display: block;
+    float: left;
+    position: relative;
+    min-width: 20px;
+    text-align: center;
+    width: 8%;
+
+    &:link,
+    &:visited,
+    &:hover, 
+    &:active {
+      text-decoration: none;
+    }
+
+    &.disabled .simple-carousel-nav-text {
+      cursor: default;
+      opacity: 0.25;
+    }
+  }
+
+  .simple-carousel-nav-text {
+    color: #bbbbbb;
+    display: block;
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    @include transition(opacity 250ms ease, color 250ms ease);
+  }
+
+  .tapped .simple-carousel-nav-text,
+  .simple-carousel-nav-text.tapped { 
+    color: #dddddd;
+  }
+
+  .l-simple-carousel-nav-text {
+    height: 20px;
+    line-height: 20px;
+    margin-top: -10px;
+    position: absolute;
+    top: 50%;
+    width: 20px;
+  }
+
+  .simple-carousel-nav-prev .simple-carousel-nav-text {
+    left: 50%;
+    margin-left: -10px;
+  }
+
+  .simple-carousel-nav-next .simple-carousel-nav-text {
+    margin-right: -10px;
+    right: 50%;
+  }
+
+  .simple-carousel-wrapper {
+    float: left;
+    overflow: hidden;
+    width: 100%;
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding-left: 0;
+      position: relative;
+      @include transition(margin-left 500ms ease);
+
+      &:after {
+        content: ".";
+        display: block;
+        height: 0;
+        clear: both;
+        visibility: hidden;
+      }
+
+      li {
+        display: block;
+        float: left;
+        height: 100%;
+        min-width: 20px;
+
+        a {
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-size: contain;
+          border: 1px solid #ffffff;
+          display: inline-block;
+          height: 100%;
+          text-align: center;
+          vertical-align: middle;
+          width: 100%;
+
+          img {
+            display: inline-block;
+            height: 100%;
+            max-height: 100%;
+            max-width: 100%;
+            visibility: hidden;
+          }
+        }
+
+        &.showing-caption a {
+          height: 90%;
+        }
+
+        .simple-carousel-caption {
+          color: #666666;
+          display: block;
+          font-size: 0.9rem;
+          height: 10%;
+          left: 0;
+          line-height: 1.15rem;
+          overflow: hidden;
+          text-align: center;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+
+  .simple-carousel-nav + .simple-carousel-wrapper {
+    width: 84%;
+  }
+}

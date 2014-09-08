@@ -1,0 +1,39 @@
+/**
+ * Styles for content pages.
+ */
+
+.content {
+  .content-header {
+    color: $header_gray;
+    text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.3);
+  }
+
+  .sub-content-items {
+    border-bottom: 1px dotted $light_gray;
+    display: block;
+    margin: 0 auto 2rem auto;
+    padding-bottom: 1rem;
+    width: 80%;
+  }
+
+  .sub-content-item {
+    display: block;
+    margin: 0 auto 1rem auto;
+  }
+
+  a.sub-content-link {
+    &:link,
+    &:visited,
+    &:hover,
+    &:active { 
+      text-decoration: none;
+    }
+  }
+
+  .sub-content-link-title {
+    color: $almost_black;
+    display: block;
+    margin-top: 0.25rem;
+    text-align: center;
+  }
+}

@@ -1,0 +1,28 @@
+.home {
+  #contents-section {
+    height: 100vh;
+    position: relative;
+    background-image: url('/images/resting_above_treeline_large.jpg');
+
+    @include fade_in_background_image();
+  }
+
+  #about-section {
+    line-height: $line-height-base * 1.5;
+    padding-bottom: 100px;
+    padding-top: 50px;
+  
+    .about-image-container-me {
+      display: block;
+      text-align: center;
+
+      .img-responsive {
+        display: inline;
+      }
+    }
+
+    .copy {
+      width: 100%;
+    }
+  }
+}

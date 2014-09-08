@@ -1,0 +1,47 @@
+/**
+ * Styles for the home page of d-low.com.
+ */
+
+.home {
+
+  /*
+   * TODO: The contents section is used on the mobile pages to navigate back to
+   * the home page or start of each section page.  These styles will need to be
+   * moved to a different location and renamed since they'll be used site wide
+   * for mobile devices.  There will be different site wide navigation for
+   * non-mobile devices.
+   */
+
+  #contents-section {
+    background: url('/images/resting_above_treeline.jpg') bottom left no-repeat;
+    background-size: cover;
+    min-height: 15rem;
+    padding: 1rem 0 14rem 0;
+  }
+  
+  #about-section {
+    padding-top: 2rem;
+
+    .about-image-container {
+      margin: 0 auto 1rem auto;
+      width: 90%;
+    }
+
+    .about-image-container-me {
+      display: none;
+    }
+
+    .about-image-container-family {
+      margin-top: 2rem;
+    }
+
+    .copy {
+      width: 90%;
+      margin: 0 auto 1rem auto;
+     
+      &.first:first-letter {
+        font-size: 3rem;
+      }
+    }
+  }
+}

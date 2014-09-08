@@ -1,0 +1,34 @@
+.content {
+  .content-header {
+    font-size: 4rem;
+    line-height: 5rem;
+
+    @media only screen and (min-width: $screen-md-min) {
+      font-size: 4.5rem;
+      line-height: 5.5rem;
+    }
+  }
+
+  .sub-content-items {
+    border-bottom: 0 none;
+  }
+
+  .sub-content-item {
+    margin-bottom: 3rem;
+    max-width: $content_and_post_max_width;
+    padding-bottom: 0;
+    padding-top: 3rem; 
+    width: 75%;
+  }
+
+  a.sub-content-link img {
+    margin: 0 auto;
+    min-width: 65%;
+  }
+
+  .sub-content-link-title {
+    font-size: 1.5rem;
+    height: 3rem;
+    line-height: 3rem;
+  }
+}

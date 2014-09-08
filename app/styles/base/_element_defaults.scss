@@ -1,0 +1,57 @@
+/*
+ * Use of CSS3 border-box box-sizing for all elements.
+ * See: http://www.paulirish.com/2012/box-sizing-border-box-ftw/
+ */
+ 
+* {
+  @include box-sizing(border-box);
+}
+
+body {
+  background-color: $white;
+}
+
+/* 
+ * Surface Bootstrap breakpoints to client side script: https://coderwall.com/p/_ldtkg 
+ *
+ * Note that if the display is set to none querying the content of the pseudo
+ * element won't work in Chrome.  See Hal D's comment: 
+ * http://davidwalsh.name/pseudo-element 
+ */
+
+body:after {
+  display: block;
+  font-size: 0;
+  height: 0;
+  line-height: 0;
+
+  @media only screen and (max-width: $screen-sm-min - 1) {
+    content: "mobile";
+  }
+
+  @media only screen and (min-width: $screen-sm-min) {  
+    content: "tablet";
+  }
+
+  /* Medium devices (desktops, 992px and up) */
+  @media only screen and (min-width: $screen-md-min) { 
+    content: "desktop";
+  }
+
+  /* Large devices (large desktops, 1200px and up) */
+  @media only screen and (min-width: $screen-lg-min) { 
+    content: "desktop-large";
+  }
+}
+
+a:link, 
+a:visited,
+a:hover,
+a:active,
+a:focus {
+  outline: none;
+}
+
+.subtle-background {
+  @include gradient-vertical(#999999, #ffffff, 0%, 100%);
+}

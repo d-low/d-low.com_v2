@@ -1,0 +1,34 @@
+.site-header {
+  // TODO: Use smaller image for mobile.
+  background-image: url('/imaeges/wendy_descending_saddle_between_watrous_and_woods.jpg');
+  background-position: 50% 0px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: $header_gray;
+  margin-top: 2.5rem;
+  min-height: 12rem;
+  text-transform: lowercase;
+  position: relative;
+}
+
+.site-header-home {
+  height: 100vh;
+  margin-top: 0;
+}
+
+.site-header-logo {
+  text-align: center;
+
+  h1 { 
+    line-height: 4rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.3);
+  }
+
+  small {
+    font-family: Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 0.88rem;
+    line-height: 0.88rem;
+  }
+}

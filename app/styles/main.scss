@@ -1,9 +1,45 @@
-@import 'sass-bootstrap/lib/bootstrap';
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+*/
 
-.browsehappy {
-    margin: 0.2em 0;
-    background: #ccc;
-    color: #000;
-    padding: 0.2em 0;
-}
+// Bootstrap core variables and mixins, and custom overrides
+@import "sass-bootstrap/lib/variables";
+@import "base/variables";
+@import "sass-bootstrap/lib/mixins";
 
+// Bootstrap reset
+@import "sass-bootstrap/lib/normalize";
+
+// Core CSS
+@import "sass-bootstrap/lib/scaffolding";
+@import "sass-bootstrap/lib/type";
+@import "sass-bootstrap/lib/grid";
+
+// Bootstrap utility classes
+@import "sass-bootstrap/lib/utilities";
+@import "sass-bootstrap/lib/responsive-utilities";
+
+// d-low.com custom styles
+@import "base/fonts";
+@import "base/element_defaults";
+@import "modules/mobile_back_navigation";
+@import "modules/site_header";
+@import "modules/contents_navigation";
+@import "modules/site_footer";
+@import "modules/home";
+@import "modules/content";
+@import "modules/content_item_container";
+@import "modules/post";
+@import "modules/simplecarousel";
+
+// TODO: plug-in styles
+// @import "contenttoggle";
