@@ -3,16 +3,20 @@
 var numberToOrdinal = function(i) {
   var j = i % 10,
       k = i % 100;
+
   if (j == 1 && k != 11) {
-    return i + "st";
+    return "_" + i + "st";
   }
+
   if (j == 2 && k != 12) {
-    return i + "nd";
+    return "_" + i + "nd";
   }
+
   if (j == 3 && k != 13) {
-    return i + "rd";
+    return "_" + i + "rd";
   }
-  return i + "th";
+
+  return "_" + i + "th";
 };
 
 var className = fixed ? "content-navigation-fixed" : "content-navigation-visual";
@@ -22,7 +26,7 @@ var mostRecentPostRandomImage = mostRecentPost.getRandomImage();
 %>
 <nav class="content-navigation <%= className %> clearfix" id="content-navigation">
   <ul class="list-unstyled">
-    <li class="content-navigation-item js-content-navigation-item 1st scaled-out">
+    <li class="content-navigation-item js-content-navigation-item _1st scaled-out">
       <a class="content-navigation-item-link button" href="#content/<%= mostRecentPost.get('path') %>">
         <img alt="<%= mostRecentPostRandomImage.get('title') %>"
              class="content-navigation-item-image js-content-navigation-item-image" 
