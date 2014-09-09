@@ -15,11 +15,12 @@ var numberToOrdinal = function(i) {
   return i + "th";
 };
 
+var className = fixed ? "content-navigation-fixed" : "content-navigation-visual";
 var mostRecentPost = home.get("mostRecentPost");
 var mostRecentPostRandomImage = mostRecentPost.getRandomImage();
 
 %>
-<nav class="content-navigation clearfix" id="content-navigation">
+<nav class="content-navigation <%= className %> clearfix" id="content-navigation">
   <ul class="list-unstyled">
     <li class="content-navigation-item js-content-navigation-item 1st scaled-out">
       <a class="content-navigation-item-link button" href="#content/<%= mostRecentPost.get('path') %>">

@@ -1,8 +1,8 @@
-.contents-navigation-item {
+.content-navigation-item {
   list-style: none;
 }
 
-.contents-navigation-item-link {
+.content-navigation-item-link {
   @include gradient-vertical(#999999, #ffffff, 0%, 100%);
   border: 1px solid #666666;
   border-radius: 5px;
@@ -27,7 +27,7 @@
     @include gradient-vertical(#ffffff, #999999, 0%, 100%);
   }
 
-  .contents-navigation-item-img {
+  .content-navigation-item-img {
     display: none;
   }
 }

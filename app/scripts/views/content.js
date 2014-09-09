@@ -54,7 +54,10 @@ Dlow.Views = Dlow.Views || {};
       }
 
       html.push(
-        this.templateContentNavigation({ home: this.model.home })
+        this.templateContentNavigation({ 
+          home: this.model.home,
+          fixed: true
+        })
       );
 
       this.$el.html(html.join(''));

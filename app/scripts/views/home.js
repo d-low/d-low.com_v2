@@ -30,7 +30,10 @@ Dlow.Views = Dlow.Views || {};
 
       html.push(
         '<section id="contents-section">',
-          this.templateContentNavigation({ home: this.model }),
+          this.templateContentNavigation({ 
+            home: this.model, 
+            fixed: false
+          }),
         '</section>'
       );
       

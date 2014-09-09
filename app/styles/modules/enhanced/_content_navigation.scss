@@ -1,5 +1,5 @@
-.contents-navigation-visual {
-  .contents-navigation-item {
+.content-navigation-visual {
+  .content-navigation-item {
     $timing: 500ms;
     $function: ease;
 
@@ -65,7 +65,7 @@
     }
   }
 
-  .contents-navigation-item-link {
+  .content-navigation-item-link {
     border-width: 1px;
     height: 100%;
     margin: 0;
@@ -73,7 +73,7 @@
     width: auto;
   }
 
-  .contents-navigation-item-image {
+  .content-navigation-item-image {
     background-position: center center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -82,13 +82,13 @@
     width: 100%;
   }
 
-  .contents-navigation-item-title {
+  .content-navigation-item-title {
     display: block;
     height: 10%;
   }
 }
 
-.contents-navigation-fixed {
+.content-navigation-fixed {
   @include gradient-vertical(rgba(153, 153, 153, 0.75), rgba(255, 255, 255, 0.75), 0%, 100%);
   border-bottom: 1px solid $border_gray;
   height: 5rem;
@@ -100,13 +100,13 @@
   width: 100%;
   z-index: 100;
 
-  .contents-navigation-item:last-child {
-    .contents-navigation-item-link {
+  .content-navigation-item:last-child {
+    .content-navigation-item-link {
       border-right: 1px solid $border_gray;
     }
   }
 
-  .contents-navigation-item-link {
+  .content-navigation-item-link {
     background-image: none;
     border: 0 none;
     border-left: 1px solid $border_gray;
@@ -125,7 +125,7 @@
       background-color: $white;
     }
 
-    .contents-navigation-item-img {
+    .content-navigation-item-image {
       // Need to trump inline styles added by jQuery lazy load.
       display: none !important; 
     }
