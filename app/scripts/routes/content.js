@@ -22,6 +22,8 @@ Dlow.Routers = Dlow.Routers || {};
         el: $("#content"),
         model: new Dlow.Models.Home()
       });
+
+      $("body").removeClass("content").addClass("home");
     },
 
     content: function(path) {
@@ -43,6 +45,8 @@ Dlow.Routers = Dlow.Routers || {};
           }
         });
       }
+
+      $("body").removeClass("home").addClass("content");
     }
 
   });
