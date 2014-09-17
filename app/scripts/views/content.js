@@ -28,6 +28,8 @@ Dlow.Views = Dlow.Views || {};
       }
 
       // TODO: Initialize event handlers, bind plug-ins, etc.
+
+      $("body").addClass("subtle-background");
     },
 
     render: function () {
@@ -61,6 +63,10 @@ Dlow.Views = Dlow.Views || {};
       );
 
       this.$el.html(html.join(''));
+    },
+
+    onClose: function() { 
+      $("body").removeClass("subtle-background");
     }
 
   });
