@@ -18,8 +18,23 @@ window.Dlow = {
 
   init: function () {
     'use strict';
-    console.log('Hello from Backbone!');
     this.router = new Dlow.Routers.Content();
+
+    // Add a close method to the Backbone.View object to be called when switching 
+    // between views to allow them to unbind their event handlers. For more 
+    // information please see:
+    // http://lostechies.com/derickbailey/2011/09/15/zombies-run-managing-page-transitions-in-backbone-apps/
+
+    Backbone.View.prototype.close = function() {  
+      this.$el.off();
+
+      // Allow for views to provide a custom onClose method.
+      if (typeof this.onClose == "function") {
+        this.onClose();
+      }
+
+      this.$el.empty();
+    };
   },
 
   // --------------------------------------------------------------------------

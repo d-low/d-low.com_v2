@@ -89,7 +89,18 @@ Dlow.Views = Dlow.Views || {};
       );
     },
 
-    // TODO: Override remove() to remove our custom event handlers.
+    /**
+     * @description Reset height of site header and remove event handlers when
+     * we're closed so we don't perform strange behaviors after we've left the
+     * home page.
+     */
+    onClose: function() {
+      this.$siteHeader.removeAttr("style");
+      this.$siteHeaderLogo.removeAttr("style").removeClass("hidden");
+      $(window).off("scroll");
+      $(window).off("resize");
+    },
+
 
     // ------------------------------------------------------------------------
     // Event Handlers

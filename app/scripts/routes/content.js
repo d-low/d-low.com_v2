@@ -18,6 +18,10 @@ Dlow.Routers = Dlow.Routers || {};
     },
 
     home: function() {
+      if (this.view) {
+        this.view.close();
+      }
+
       this.view = new Dlow.Views.Home({
         el: $("#content"),
         model: new Dlow.Models.Home()
@@ -27,6 +31,10 @@ Dlow.Routers = Dlow.Routers || {};
     },
 
     content: function(path) {
+      if (this.view) {
+        this.view.close();
+      }
+      
       if (Dlow.Models.Post.isPost(null, path)) {
         this.view = new Dlow.Views.Post({
           el: $("#content"),
