@@ -21,6 +21,11 @@ Dlow.Views = Dlow.Views || {};
     events: {},
 
     initialize: function () {
+      $("body")
+        .addClass("subtle-background")
+        .removeClass("home")
+        .addClass("content");
+        
       this.listenTo(this.model.content, "ready", this.render);
 
       if (this.model.content.isReady()) {
@@ -28,8 +33,6 @@ Dlow.Views = Dlow.Views || {};
       }
 
       // TODO: Initialize event handlers, bind plug-ins, etc.
-
-      $("body").addClass("subtle-background");
     },
 
     render: function () {
@@ -66,7 +69,9 @@ Dlow.Views = Dlow.Views || {};
     },
 
     onClose: function() { 
-      $("body").removeClass("subtle-background");
+      $("body")
+        .removeClass("subtle-background")
+        .removeClass("content");
     }
 
   });

@@ -26,6 +26,10 @@ Dlow.Views = Dlow.Views || {};
     // ------------------------------------------------------------------------
 
     initialize: function () {
+      $("body")
+        .removeClass("content")
+        .addClass("home");
+
       this.render();
 
       this.$siteHeader = $(".site-header");
@@ -96,7 +100,15 @@ Dlow.Views = Dlow.Views || {};
      */
     onClose: function() {
       this.$siteHeader.removeAttr("style");
-      this.$siteHeaderLogo.removeAttr("style").removeClass("hidden");
+      this.$siteHeaderLogo
+        .removeAttr("style")
+        .removeClass("hidden")
+        .removeClass("show-background-image");
+      this.$contentSection
+        .removeClass("show-background-image");
+
+      $("body").removeClass("home");
+
       $(window).off("scroll");
       $(window).off("resize");
     },

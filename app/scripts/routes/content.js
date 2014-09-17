@@ -26,15 +26,13 @@ Dlow.Routers = Dlow.Routers || {};
         el: $("#content"),
         model: new Dlow.Models.Home()
       });
-
-      $("body").removeClass("content").addClass("home");
     },
 
     content: function(path) {
       if (this.view) {
         this.view.close();
       }
-      
+
       if (Dlow.Models.Post.isPost(null, path)) {
         this.view = new Dlow.Views.Post({
           el: $("#content"),
@@ -53,8 +51,6 @@ Dlow.Routers = Dlow.Routers || {};
           }
         });
       }
-
-      $("body").removeClass("home").addClass("content");
     }
 
   });
