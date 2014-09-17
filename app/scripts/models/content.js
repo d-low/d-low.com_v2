@@ -232,7 +232,7 @@ Dlow.Models = Dlow.Models || {};
         // If the node is a post then we've hit our recursive base case
         // so we return a new post instance for the selected node.
 
-        return new Dlow.Models.Post({path: node["path"]});
+        return new Dlow.Models.Post({path: node["path"], noIndex: true});
       }
       else {
 

@@ -17,7 +17,10 @@ Dlow.Models = Dlow.Models || {};
       }
 
       this.set("contents", contents);
-      this.set("mostRecentPost", new Dlow.Models.Post({path: Dlow.mostRecentPostPath}));
+      this.set("mostRecentPost", new Dlow.Models.Post({
+        path: Dlow.mostRecentPostPath, 
+        noIndex: true
+      }));
     },
 
     defaults: {

@@ -37,6 +37,11 @@ Dlow.Models = Dlow.Models || {};
         })
       );
 
+      if (this.get("noIndex")) {
+        this.trigger("ready");
+        return;
+      }
+
       $.get(
         Dlow.DATA_PATH + this.get("path") + "/index.html",
         $.proxy(this.getIndex_success, this)
