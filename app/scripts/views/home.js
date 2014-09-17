@@ -15,8 +15,8 @@ Dlow.Views = Dlow.Views || {};
     heights: {
       siteHeader: 0,
       siteHeaderLogo: 0,
-      contentsSection: 0,
-      contentsSectionOffsetTop: 0
+      contentSection: 0,
+      contentSectionOffsetTop: 0
     },
 
     resize_timeout: null,
@@ -30,7 +30,7 @@ Dlow.Views = Dlow.Views || {};
 
       this.$siteHeader = $(".site-header");
       this.$siteHeaderLogo = $(".site-header-logo");
-      this.$contentsSection = $("#contents-section");
+      this.$contentSection = $("#content-section");
     
       this.initializeUI();
       this.initializeEvents();
@@ -72,7 +72,7 @@ Dlow.Views = Dlow.Views || {};
       var html = [];
 
       html.push(
-        '<section id="contents-section">',
+        '<section id="content-section">',
           this.templateContentNavigation({ 
             home: this.model, 
             fixed: false
@@ -114,7 +114,7 @@ Dlow.Views = Dlow.Views || {};
         this.updateSiteHeaderBackground();
         this.updateSiteHeaderLogoOpacity();
       }
-      if (this.isContentsSectionVisible()) {
+      if (this.isContentSectionVisible()) {
         this.scaleInContentNavImages();
       }
     },
@@ -130,8 +130,8 @@ Dlow.Views = Dlow.Views || {};
     getHeights: function() {
       this.heights.siteHeader = this.$siteHeader.height();
       this.heights.siteHeaderLogo = this.$siteHeaderLogo.height();
-      this.heights.contentsSection = this.$contentsSection.height();
-      this.heights.contentsSectionOffsetTop = this.$contentsSection.offset().top;
+      this.heights.contentSection = this.$contentSection.height();
+      this.heights.contentSectionOffsetTop = this.$contentSection.offset().top;
     },
 
     /**
@@ -158,7 +158,7 @@ Dlow.Views = Dlow.Views || {};
       this.$siteHeader.css("height", height + "px");
 
       if (!Dlow.isMobile()) {
-        this.$contentsSection.css("height", height + "px");
+        this.$contentSection.css("height", height + "px");
       }
     },
 
@@ -175,8 +175,8 @@ Dlow.Views = Dlow.Views || {};
      * @description The contents section is visible when the window's scroll 
      * top is within 300px of the top of it.
      */
-    isContentsSectionVisible: function() { 
-      return $(window).scrollTop() >= this.heights.contentsSectionOffsetTop - 300;
+    isContentSectionVisible: function() { 
+      return $(window).scrollTop() >= this.heights.contentSectionOffsetTop - 300;
     },
 
 
@@ -244,7 +244,7 @@ Dlow.Views = Dlow.Views || {};
         return;
       }
 
-      var itemImages = $(".js-contents-navigation-item-image");
+      var itemImages = $(".js-content-navigation-item-image");
 
       for (var i = 0; i < itemImages.length; i++) {
         var $itemImage = $(itemImages[i]);
@@ -278,8 +278,8 @@ Dlow.Views = Dlow.Views || {};
         this.loadBackgroundImage(this.$siteHeader, fCallback);
       }
 
-      if (!this.$contentsSection.hasClass("show-background-image")) {
-        this.loadBackgroundImage(this.$contentsSection, fCallback);
+      if (!this.$contentSection.hasClass("show-background-image")) {
+        this.loadBackgroundImage(this.$contentSection, fCallback);
       }
     },
 
@@ -294,11 +294,11 @@ Dlow.Views = Dlow.Views || {};
       }
 
       var self = this;
-      var navItemImages = $(".js-contents-navigation-item-image");
+      var navItemImages = $(".js-content-navigation-item-image");
       var currentImage = -1;
 
       var fScaleIn = function($navItemImage) {
-        var $navItem = $navItemImage.closest(".js-contents-navigation-item");
+        var $navItem = $navItemImage.closest(".js-content-navigation-item");
         $navItem
           .one(
             "transitionend webkitTransitionEnd oTransitionEnd otransitionend", 
