@@ -46,7 +46,7 @@ Dlow.Views = Dlow.Views || {};
       );
 
       if (posts && posts.length) {
-        posts.each(function(post) {
+        _.each(posts.toArray().reverse(), function(post) {
           html.push(
             this.templatePost({ post: post })
           );
