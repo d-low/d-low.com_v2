@@ -164,12 +164,35 @@ Dlow.Models = Dlow.Models || {};
       this.trigger("ready");
     },
 
-    setTitle: function() { 
+    /**
+     * @description Set the the title of the content removing any occurence of
+     * the parent path name and then removing leading digits and replacing 
+     * dashes and underscores with white space.  
+     * NOTE: We use this method, rather than the commented out one below, 
+     * because we're not using any breadcrumb navigation.
+     */
+    setTitle: function() {
+      var parts = this.get("path").split("/");
+      var title = parts[parts.length - 1];
 
-      // Parse the title creating a hash of parts to URLs so that we can
-      // display a breadcrumb letting the user know where they are and 
-      // making each part an anchor for easier navigation.
-  
+      title = title.replace(/^\d\d-/, "").replace(/[-_]/g, " ");
+
+      if (typeof parts[parts.length - 2] !== "undefined") {
+        var parent = parts[parts.length - 2];
+        parent = parent.replace(/^\d\d-/, "").replace(/[-_]/g, " ");
+        title = title.replace(new RegExp(parent, "i"), "");
+      }
+
+      this.set("title", title);
+    },
+
+    /** 
+     * @description Parse the title creating a hash of parts to URLs so that we
+     * can display a breadcrumb letting the user know where they are and making
+     * each part an anchor for easier navigation.
+     */
+    /*
+    setTitle: function() { 
       var parts = this.get("path").split("/");
       var title = [];
       var titleNav = [];
@@ -211,6 +234,7 @@ Dlow.Models = Dlow.Models || {};
       // one part of the path?  This logic seems fragile. 
       this.set("titleNav", titleNav.length > 1 ? titleNav : []);
     },
+    */
 
     /** 
      * @description Recurse through our nodes, selecting one at random at 
