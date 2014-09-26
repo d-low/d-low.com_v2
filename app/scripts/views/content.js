@@ -22,9 +22,10 @@ Dlow.Views = Dlow.Views || {};
 
     initialize: function() {
       $("body")
-        .addClass("subtle-background")
         .removeClass("home")
-        .addClass("content");
+        .removeClass("single-post")
+        .addClass("content")
+        .addClass("subtle-background");
         
       this.listenTo(this.model.content, "ready", this.render);
 

@@ -28,6 +28,8 @@ Dlow.Views = Dlow.Views || {};
     initialize: function () {
       $("body")
         .removeClass("content")
+        .removeClass("subtle-background")
+        .removeClass("single-post")
         .addClass("home");
 
       this.render();

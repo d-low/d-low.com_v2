@@ -19,6 +19,12 @@ Dlow.Views = Dlow.Views || {};
     events: {},
 
     initialize: function () {
+      $("body")
+        .removeClass("home")
+        .addClass("content")
+        .addClass("subtle-background")
+        .addClass("single-post");
+
       this.listenTo(this.model.post, "ready", this.render);
       
       if (this.model.post.isReady()) {
@@ -32,10 +38,13 @@ Dlow.Views = Dlow.Views || {};
       this.model.post.stopListening();
 
       html.push(
-        this.template({post: this.model.post }) // TODO: Rename parameter
+        this.template({post: this.model.post })
       );
       html.push(
-        this.templateContentNavigation({ home: this.model.home })
+        this.templateContentNavigation({ 
+          home: this.model.home,
+          fixed: true
+         })
       );
 
       this.$el.html(html.join(''));
