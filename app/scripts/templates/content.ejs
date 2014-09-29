@@ -6,8 +6,8 @@
       <a class="sub-content-link" href="#content/<%= subcontents.at(i).get('path') %>">
         <img alt="<%= !_.isNull(randomImage) ? randomImage.get('caption') : 'REVIEW: No images available!' %>"
           class="img-responsive js-lazy-load js-lazy-load-immediate"
-          data-original="TODO: Use src value, and set to blank.gif, when we're lazy loading images" 
-          src="<%= !_.isNull(randomImage) ? randomImage.get('fullpath') : 'REVIEW: No images available!' %>" /> 
+          data-original="<%= !_.isNull(randomImage) ? randomImage.get('fullpath') : '' %>" 
+          src="/images/blank.gif" /> 
         <span class="sub-content-link-title">
           <%= subcontents.at(i).get("title") %>
         </span>
@@ -15,16 +15,3 @@
     </li>
   <% } %>
 </ul>
-
-
-<!-- TODO
-section.content-navigation
-  = render \
-    :partial => '/contents_navigation', \
-    :locals => { \
-      :fixed => true, \
-      :home_model => @home_model, \
-      :random_image => @random_image \
-    }
--->
-

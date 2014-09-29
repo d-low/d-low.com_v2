@@ -69,6 +69,28 @@ Dlow.Views = Dlow.Views || {};
       if (posts && posts.length) {
         this.initializePosts();
       }
+      else {
+        this.lazyLoadImages();
+      }
+    },
+
+    /**
+     * @description Lazy load the images for the page when the contents are not
+     * a list of posts immediately.
+     */
+    lazyLoadImages: function() {
+      var immediateImages = $("img.js-lazy-load-immediate");
+
+      if (Dlow.isMobile()) {
+        immediateImages = immediateImages.not(".js-lazy-load-except-mobile");
+      }
+
+      immediateImages.lazyload({ 
+        effect: "fadeIn",
+        event: "lazyload" 
+      });
+
+      window.setTimeout(function() { immediateImages.trigger("lazyload"); }, 1000); 
     },
 
 
