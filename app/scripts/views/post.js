@@ -32,6 +32,18 @@ Dlow.Views = Dlow.Views || {};
       }
     },
 
+    onClose: function() { 
+      $("body")
+        .removeClass("subtle-background")
+        .removeClass("content")
+        .removeClass("single-post");
+        
+      // TODO: Remove simple carousel instances
+
+      $(window).off("resize");
+      $(".js-post-image-link").off("click");
+    },
+
     render: function () {
       var html = [];
 
@@ -48,8 +60,13 @@ Dlow.Views = Dlow.Views || {};
       );
 
       this.$el.html(html.join(''));
+
+      this.initializePosts();
     }
 
-  });
+  }); // end Dlow.Views.Post
 
-})();
+ _.extend(Dlow.Views.Post.prototype, Dlow.Views.PostMixin);
+
+
+})(); // end IIEF
