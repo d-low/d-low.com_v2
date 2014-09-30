@@ -167,7 +167,8 @@ Dlow.Models = Dlow.Models || {};
     /**
      * @description Set the the title of the content removing any occurence of
      * the parent path name and then removing leading digits and replacing 
-     * dashes and underscores with white space.  
+     * dashes and underscores with white space.  Also save the long title which
+     * is the same as th etile except with out the parent name removed.
      * NOTE: We use this method, rather than the commented out one below, 
      * because we're not using any breadcrumb navigation.
      */
@@ -176,6 +177,8 @@ Dlow.Models = Dlow.Models || {};
       var title = parts[parts.length - 1];
 
       title = title.replace(/^\d\d-/, "").replace(/[-_]/g, " ");
+
+      this.set("fullTitle", title);
 
       if (typeof parts[parts.length - 2] !== "undefined") {
         var parent = parts[parts.length - 2];

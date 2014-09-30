@@ -100,12 +100,9 @@ Dlow.Models = Dlow.Models || {};
     }
   });
 
-  // We extend the object itself, not the prototype, because we need the 
-  // getNodeFromPath() method available in the isPost() class method, not on
-  // instance methods.
-  // NOTE: If this changes, and we need this method on an instance, then we
-  // can extend the prototype too!  
+  // Use mixin methods in both the class and instance
   _.extend(Dlow.Models.Post, Dlow.Models.Mixins);
+  _.extend(Dlow.Models.Post.prototype, Dlow.Models.Mixins);
 
   /**
    * @description Static, or class, method used to check if a node or path to

@@ -28,6 +28,26 @@ Dlow.Models = Dlow.Models || {};
       }
 
       return node;
+    },
+
+    /**
+     * @description Given the path to our parent return a new content model if
+     * a parent exists.
+     */
+    getParent: function() {
+
+      // Remove last element from path to get parent path
+      var path = this.get("path").split("/");
+      path.pop();
+
+      var parentPath = path.join("/");
+      var parentContent = null;
+
+      if (parentPath) {
+        parentContent = new Dlow.Models.Content({path: parentPath, populateChildren: false});
+      }
+     
+      return parentContent;
     }
 
   };

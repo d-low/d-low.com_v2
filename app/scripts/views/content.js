@@ -7,6 +7,7 @@ Dlow.Views = Dlow.Views || {};
 
   Dlow.Views.Content = Backbone.View.extend({
 
+    templateMobileBackNavigation: JST['app/scripts/templates/mobile_back_navigation.ejs'],
     templateContentHeader: JST['app/scripts/templates/content_header.ejs'],
     template: JST['app/scripts/templates/content.ejs'],
     templatePost: JST['app/scripts/templates/post.ejs'],
@@ -39,6 +40,12 @@ Dlow.Views = Dlow.Views || {};
 
       var html = [];
       var posts = this.model.content.get("posts");
+
+      html.push(
+        this.templateMobileBackNavigation({ 
+          parent: this.model.content.getParent() 
+        })
+      );
 
       html.push(
         this.templateContentHeader({ model: this.model.content })

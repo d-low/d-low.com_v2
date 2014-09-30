@@ -1,0 +1,9 @@
+<nav id="mobile-back-navigation">
+  <% if (parent) { %>
+    <a href="<%= parent.get('url') %>">
+      &lt; <%= parent.get("fullTitle") %>
+    </a>
+  <% } else { %>
+    <a href="/">&lt; Home</a>
+  <% } %>
+</nav>
