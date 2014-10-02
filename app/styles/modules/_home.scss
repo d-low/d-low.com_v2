@@ -24,7 +24,17 @@
 
     .about-image-container {
       margin: 0 auto 1rem auto;
+      padding: 1rem;
+      position: relative;
       width: 90%;
+
+      span {
+        display: block;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 100%;
+      }
     }
 
     .about-image-container-me {
@@ -33,6 +43,11 @@
 
     .about-image-container-family {
       margin-top: 2rem;
+      height: 200px;
+
+      span {
+        background-image: url(/images/the_family.jpg);
+      }
     }
 
     .copy {

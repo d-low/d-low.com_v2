@@ -14,15 +14,20 @@
   
     .about-image-container-me {
       display: block;
-      text-align: center;
+      height: 400px;
 
-      .img-responsive {
-        display: inline;
+      span {
+        background-image: url(/images/mike_the_elf_236x400.jpg);
       }
     }
 
     .copy {
       width: 100%;
     }
+
+    .about-image-container-family {
+      height: 350px;
+    }
+ 
   }
 }
