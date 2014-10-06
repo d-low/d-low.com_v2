@@ -57,6 +57,7 @@
     carouselContentsHeight: null,
     currentImage: 0,
     handleResize: true,
+    height: null,
     maxHeight: null,
     maxWidth: null,
     maxItems: null,
@@ -365,7 +366,10 @@
 
       this.listHeight = $li.outerHeight();
 
-      if (this.options.maxHeight && this.listHeight > this.options.maxHeight) {
+      if (this.options.height) { 
+        this.listHeight = this.options.height;
+      }
+      else if (this.options.maxHeight && this.listHeight > this.options.maxHeight) {
         this.listHeight = this.options.maxHeight;
       }
       

@@ -23,7 +23,7 @@ Dlow.Views = Dlow.Views || {};
         if (! $postImages.data("simplecarousel")) {
           $postImages.simplecarousel({
             handleResize: false,
-            maxHeight: 125, // TODO: Use larger height when we have larger thumbnails!
+            height: 125, // TODO: Use larger height when we have larger thumbnails!
             minItems: 2,
             showNavigation: true
           });
