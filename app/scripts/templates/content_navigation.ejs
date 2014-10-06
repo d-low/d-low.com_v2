@@ -39,21 +39,12 @@ var mostRecentPostRandomImage = mostRecentPost.getRandomImage();
     <% for (var i = 0, contents = home.get("contents"); i < contents.length; i++) { %>
       <% 
       
-      // TODO: We may have a random post that does not have any any images. In
-      // this case should we continue finding random posts until we find one
-      // that has an image?  Or should we isolate that from the view better by
-      // encapsulating that logic in the content model?
-
       var content = contents.at(i);
-      var randomPost = content ? content.getRandomPost() : null;
-      var randomImage = randomPost ? randomPost.getRandomImage() : null;
+      var randomImage = content.getRandomImage();
       var randomImagePath = randomImage ? randomImage.get("fullpath") : "";
 
       if (!content) {
         console.log("No content found for contents.at(" + i + ")");
-      }
-      else if (!randomPost) { 
-        console.log("No random post found for " + content.get("title"));
       }
       else if (!randomImage) {
         console.log("No random image found for " + content.get("title"));

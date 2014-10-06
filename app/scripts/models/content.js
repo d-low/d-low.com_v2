@@ -271,7 +271,23 @@ Dlow.Models = Dlow.Models || {};
         var index = _.random(0, nodes.length - 1);
         return this.getRandomPost(nodes[index]);
       }
+    },
+
+    /** 
+     * @description Return a random image from a random post that has images.
+     */
+    getRandomImage: function() { 
+      var randomPost = this.getRandomPost();
+
+      // Note that pots with no images are rare, so we'll eventually find one
+      // with images!
+      while (!randomPost.hasImages()) {
+        randomPost = this.getRandomPost();
+      }
+
+      return randomPost.getRandomImage();
     }
+
   });
 
   _.extend(Dlow.Models.Content.prototype, Dlow.Models.Mixins);

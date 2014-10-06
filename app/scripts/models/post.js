@@ -90,6 +90,10 @@ Dlow.Models = Dlow.Models || {};
       return randomImageUrl;
     },
 
+    hasImages: function() { 
+      return this.get("images").length > 0;
+    },
+
     /**
      * @description Method used by caller to check to see whether this post
      * instance is ready or not.  A post instance is ready if we've loaded
