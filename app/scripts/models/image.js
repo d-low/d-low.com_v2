@@ -21,13 +21,13 @@ Dlow.Models = Dlow.Models || {};
     initialize: function() { 
       this.set(
         "fullpath", 
-        Dlow.Models.Mixins.CONTENT_ROOT + this.get("path") + "/" + this.get("filename")
+        "/" + Dlow.Models.Mixins.CONTENT_ROOT + this.get("path") + "/" + this.get("filename")
       );
 
       if (this.get("thumbs")) {
         this.set(
           "thumbnail", 
-          Dlow.Models.Mixins.CONTENT_ROOT + this.get("path") + "/thumbnails/" + this.get("filename")
+          "/" + Dlow.Models.Mixins.CONTENT_ROOT + this.get("path") + "/thumbnails/" + this.get("filename")
         );
       }
 
