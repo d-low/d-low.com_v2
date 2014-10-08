@@ -134,31 +134,25 @@ Dlow.Views = Dlow.Views || {};
       var $postImages = $postImage.closest(".js-post-images");
       var currentImage = $postImage.data("itemnum");
 
-      var fRenderListItems = function() { 
-        var listItems = [];
+      //
+      // Generate HTML using template
+      //
 
-        $postImages.find(".js-post-image").each(function() { 
-          var $img = $(this);
+      var images = [];
 
-          listItems.push([
-            '<li>',
-              '<a href="javascript:void(0);">',
-                '<img src="' + $img.data("largeimage") + '" title="' + $img.attr("title") + '" />', 
-              '</a>',
-            '</li>'
-          ].join(''));
-        });
+      $postImages.find(".js-post-image").each(function() { 
+        var $img = $(this);
 
-        return listItems.join('');
-      };
+        images.push({
+          src: $img.data("largeimage"),
+          title: $img.attr("title")
+        })
+      });
 
-      var $postImagesZoomWrapper = $([
-        '<div class="post-images-zoom-wrapper" style="height: ' + $("body").height() + 'px;">',
-          '<ul class="post-images-zoom js-post-images-zoom not-visible">',
-            fRenderListItems(),
-          '</ul>',
-        '</div'
-      ].join(''));
+      var $postImagesZoomWrapper = $(JST['app/scripts/templates/post_images_zoom_wrapper.ejs']({
+        height: $("body").height(),
+        images: images
+      }));
 
       //
       // Add the large post images element to the DOM and intialize the plug-in.
