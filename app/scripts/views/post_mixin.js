@@ -165,60 +165,12 @@ Dlow.Views = Dlow.Views || {};
       }, 100);
 
       //
-      // Event handler used to remove the simple carousel
-      //
-
-      var fSimpleCarouselRemove = function(e) {
-        e.preventDefault();
-
-        $simpleCarousel.one(
-          "transitionend webkitTransitionEnd oTransitionEnd otransitionend", 
-          function() {
-            var $ul = $simpleCarousel.find("ul");
-            $ul.simplecarousel("destroy");
-            $ul.remove();
-
-            $postImagesZoomWrapper.one(
-              "transitionend webkitTransitionEnd oTransitionEnd otransitionend", 
-              function() {
-                window.setTimeout(function() { $postImagesZoomWrapper.remove(); }, 100);
-              }
-            );
-
-            $postImagesZoomWrapper.removeClass("fade-in");
-          }
-        );
-
-        $simpleCarousel.addClass("slide-up");
-      };
-
-      //
       // Apply the simple carousel plug-in to the post images zoom, and once its
       // loaded add the scale out class, then remove the not-visible-class, and 
       // then add the scale in class.
       //
 
       var $postImagesZoom = $postImagesZoomWrapper.find(".js-post-images-zoom");
-      var $simpleCarousel = null;
-
-      var fSimpleCarousel_load = function() {
-        $simpleCarousel = $postImagesZoom.closest(".js-simple-carousel");
-        
-        $simpleCarousel.append(
-          '<a class="simple-carousel-nav-text simplecarousel-remove ' + 
-            'js-simplecarousel-remove button" href="javascript:void(0);">x</a>'
-        );
-
-        $simpleCarousel.one(
-          "transitionend webkitTransitionEnd oTransitionEnd otransitionend", 
-          function() { 
-            $postImagesZoom.removeClass("not-visible");
-            $simpleCarousel.addClass("scale-in");
-          }
-        );
-        $simpleCarousel.addClass("scale-out");
-        $simpleCarousel.find(".js-simplecarousel-remove").one("click", fSimpleCarouselRemove);
-      };
 
       $postImagesZoom.simplecarousel({
         carouselContentsHeight: Dlow.isMobile() ? "100%" : undefined,
@@ -228,8 +180,69 @@ Dlow.Views = Dlow.Views || {};
         maxWidth: !Dlow.isMobile() ? 800 : undefined,
         showCaption: true,
         showNavigation: true,
-        onload: fSimpleCarousel_load
+        onload: $.proxy(this.simpleCarousel_load, this)
       });
+    },
+
+    /**
+     * @description When the simple carousel has loaded add a remove element, 
+     * scale in the simple carousel, and bind an onclick handler for the remove
+     * element.
+     */
+    simpleCarousel_load: function() { 
+      var $postImagesZoom = $(".js-post-images-zoom");
+      var $simpleCarousel = $postImagesZoom.closest(".js-simple-carousel");
+        
+      $simpleCarousel.append(
+        '<a class="simple-carousel-nav-text simplecarousel-remove ' + 
+          'js-simplecarousel-remove button" href="javascript:void(0);">x</a>'
+      );
+
+      $simpleCarousel.one(
+        "transitionend webkitTransitionEnd oTransitionEnd otransitionend", 
+        function() { 
+          $postImagesZoom.removeClass("not-visible");
+          $simpleCarousel.addClass("scale-in");
+        }
+      );
+
+      $simpleCarousel.addClass("scale-out");
+
+      $simpleCarousel.find(".js-simplecarousel-remove").one(
+        "click", $.proxy(this.simpleCarousel_remove, this)
+      );
+    },
+
+    /**
+     * @description To remove the simple carousel slide it up and then when 
+     * done destroy the plug in, remove the list of images, fade out the back-
+     * ground shim, and then remove it too.
+     */
+    simpleCarousel_remove: function(e) { 
+      e.preventDefault();
+
+      var $postImagesZoomWrapper = $(".js-post-images-zoom-wrapper");
+      var $simpleCarousel = $postImagesZoomWrapper.find(".js-simple-carousel");
+
+      $simpleCarousel.one(
+        "transitionend webkitTransitionEnd oTransitionEnd otransitionend", 
+        function() {
+          var $ul = $simpleCarousel.find("ul");
+          $ul.simplecarousel("destroy");
+          $ul.remove();
+
+          $postImagesZoomWrapper.one(
+            "transitionend webkitTransitionEnd oTransitionEnd otransitionend", 
+            function() {
+              window.setTimeout(function() { $postImagesZoomWrapper.remove(); }, 100);
+            }
+          );
+
+          $postImagesZoomWrapper.removeClass("fade-in");
+        }
+      );
+
+      $simpleCarousel.addClass("slide-up");
     }
 
   }; // end Dlow.Views.PostMixin
