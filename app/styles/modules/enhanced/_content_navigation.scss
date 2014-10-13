@@ -119,7 +119,7 @@
     padding: 0;
     @include transition(background-color 500ms ease);
     // NOTE: This width is dependent on the number of sections!  
-    width: 16.6%;
+    width: 14.28%;
 
     &:hover { 
       background-color: $white;

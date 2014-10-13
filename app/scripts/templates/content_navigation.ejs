@@ -22,6 +22,7 @@ var numberToOrdinal = function(i) {
 var className = fixed ? "content-navigation-fixed" : "content-navigation-visual";
 var mostRecentPost = home.get("mostRecentPost");
 var mostRecentPostRandomImage = mostRecentPost.getRandomImage();
+var contents = home.get("contents");
 
 %>
 <nav class="content-navigation <%= className %> clearfix" id="content-navigation">
@@ -36,7 +37,7 @@ var mostRecentPostRandomImage = mostRecentPost.getRandomImage();
         </span>
       </a>
     </li>
-    <% for (var i = 0, contents = home.get("contents"); i < contents.length; i++) { %>
+    <% for (var i = 0; i < contents.length; i++) { %>
       <% 
       
       var content = contents.at(i);
@@ -63,6 +64,13 @@ var mostRecentPostRandomImage = mostRecentPost.getRandomImage();
           <span  class="content-navigation-item-title">
             <%= content.get("title") %>
           </span>
+        </a>
+      </li>
+    <% } %>
+    <% if (fixed) { %>
+      <li class="content-navigation-item js-content-navigation-item scaled-out">
+        <a class="content-navigation-item-link button" href="/">
+          <span  class="content-navigation-item-title">Home</span>
         </a>
       </li>
     <% } %>
