@@ -9,6 +9,14 @@
 
 body {
   background-color: $white;
+  opacity: 0;
+  @include transition(opacity 500ms ease);
+
+  &.home,
+  &.content,
+  &.single-post {
+    opacity: 1;
+  }
 }
 
 /* 
