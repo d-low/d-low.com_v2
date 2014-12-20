@@ -14,22 +14,15 @@
   }
 
   .sub-content-item {
-    min-height: 30rem;
+    height: 30rem;
     margin-bottom: 3rem;
     max-width: $content_and_post_max_width;
-    padding-bottom: 0;
-    padding-top: 3rem; 
     width: 75%;
   }
 
-  a.sub-content-link img {
-    margin: 0 auto;
-    min-width: 65%;
-  }
-
-  .sub-content-link-title {
+  .sub-content-title {
     font-size: 1.5rem;
-    height: 3rem;
     line-height: 3rem;
+    min-height: 3rem;
   }
 }

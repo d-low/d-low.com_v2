@@ -77,27 +77,20 @@ Dlow.Views = Dlow.Views || {};
         this.initializePosts();
       }
       else {
-        this.lazyLoadImages();
+        this.loadImages();
       }
     },
 
     /**
-     * @description Lazy load the images for the page when the contents are not
+     * @description Load the images for the page when the contents are not
      * a list of posts immediately.
      */
-    lazyLoadImages: function() {
-      var immediateImages = $("img.js-lazy-load-immediate");
-
-      if (Dlow.isMobile()) {
-        immediateImages = immediateImages.not(".js-lazy-load-except-mobile");
-      }
-
-      immediateImages.lazyload({ 
-        effect: "fadeIn",
-        event: "lazyload" 
+    loadImages: function() {
+      _.each($(".js-sub-content-image"), function(image) {
+        var $image = $(image);
+        $image.css("background-image", "url(" + $image.data("backgroundimage") + ")");
+        Dlow.loadBackgroundImage($image);
       });
-
-      window.setTimeout(function() { immediateImages.trigger("lazyload"); }, 1000); 
     },
 
 

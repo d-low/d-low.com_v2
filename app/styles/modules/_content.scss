@@ -19,10 +19,14 @@
   .sub-content-item {
     display: block;
     margin: 0 auto 1rem auto;
-    min-height: 9rem;
+    height: 12rem;
+    padding: 1rem;
   }
 
   a.sub-content-link {
+    display: block;
+    height: 100%;
+
     &:link,
     &:visited,
     &:hover,
@@ -31,11 +35,31 @@
     }
   }
 
-  .sub-content-link-title {
+  .sub-content-container {
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+
+  .sub-content-image {
+    @include fade_in_background_image();
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: block;
+    height: 85%;
+  }
+
+  .sub-content-title {
+    // TODO: Vertically center text using this technique instead of line-height:
+    // http://css-tricks.com/centering-in-the-unknown/
     color: $almost_black;
     display: block;
+    height: 15%;
     margin-top: 0.25rem;
     text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   &.single-post .post {

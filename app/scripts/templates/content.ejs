@@ -4,13 +4,15 @@
   %>
     <li class="sub-content-item content-item-container">
       <a class="sub-content-link" href="#content/<%= subcontents.at(i).get('path') %>">
-        <img alt="<%= !_.isNull(randomImage) ? randomImage.get('caption') : 'REVIEW: No images available!' %>"
-          class="img-responsive js-lazy-load js-lazy-load-immediate"
-          data-original="<%= !_.isNull(randomImage) ? randomImage.get('fullpath') : '' %>" 
-          src="/images/blank.gif" /> 
-        <span class="sub-content-link-title">
-          <%= subcontents.at(i).get("title") %>
-        </span>
+        <figure class="sub-content-container">
+          <span 
+            class="sub-content-image js-sub-content-image" 
+            data-backgroundimage="<%= !_.isNull(randomImage) ? randomImage.get('fullpath') : '' %>">
+          </span>
+          <figcaption class="sub-content-title">
+            <%= subcontents.at(i).get("title") %>
+          </figcaption>
+        </figure>
       </a>
     </li>
   <% } %>
