@@ -279,7 +279,7 @@ Dlow.Views = Dlow.Views || {};
           .attr("style", style)
           .removeData("nonmobilestyle");
           
-        this.loadBackgroundImage($itemImage);
+        Dlow.loadBackgroundImage($itemImage);
       }
     },
 
@@ -295,17 +295,8 @@ Dlow.Views = Dlow.Views || {};
         return;
       }
 
-      var fCallback = function($el) {
-        $el.addClass("show-background-image");
-      };
-
-      if (!this.$siteHeader.hasClass("show-background-image")) {
-        this.loadBackgroundImage(this.$siteHeader, fCallback);
-      }
-
-      if (!this.$contentSection.hasClass("show-background-image")) {
-        this.loadBackgroundImage(this.$contentSection, fCallback);
-      }
+      Dlow.loadBackgroundImage(this.$siteHeader);
+      Dlow.loadBackgroundImage(this.$contentSection);
     },
 
     /**
@@ -323,6 +314,8 @@ Dlow.Views = Dlow.Views || {};
       var currentImage = -1;
 
       var fScaleIn = function($navItemImage) {
+        console.log("fScaleIn()");
+
         var $navItem = $navItemImage.closest(".js-content-navigation-item");
         $navItem
           .one(
@@ -339,33 +332,12 @@ Dlow.Views = Dlow.Views || {};
           return;
         }
 
-        self.loadBackgroundImage($(navItemImages[currentImage]), fScaleIn);        
+        console.log("fLoadNextNavItemImage(): currentImage = " + currentImage);
+        
+        Dlow.loadBackgroundImage($(navItemImages[currentImage]), fScaleIn);        
       };
 
       fLoadNextNavItemImage();
-    },
-
-    /**
-     * @description Load the background image of the specified element and when 
-     * available invoke the specified callback.  If there is no background 
-     * image then just return.
-     */
-    loadBackgroundImage: function($el, fCallback) {
-      var src = $el.css("background-image");
-
-      if (!src.match(/^url/)) {
-        return;
-      }
-
-      src = src.replace(/(^url\()|(\)$|[\"\'])/g, '');
-
-      $('<img>').attr('src', src).imagesLoaded(
-        function() { 
-          if (typeof(fCallback) === "function") {
-            fCallback($el); 
-          }
-        }
-      );
     }
 
   }); // end Dlow.Views.Home

@@ -97,6 +97,51 @@ window.Dlow = {
       scrollTop: scrollUpTo
     }, 500, fCallback);
   },
+
+
+  /**
+   * @description Load the background image of the specified element using
+   * images loaded and once loaded add our show-background-image class which 
+   * transitions the background from white/100% opacity to white/0% opacity
+   * having the effect of fading in the background image after loading it.
+   * @param fCallback Function to call after loading the image, but not waiting
+   * until after it fades in, passing it the element we just loaded the 
+   * background image for.
+   */
+  loadBackgroundImage: function($el, fCallback) {
+
+    // Already faded in, just return
+    if ($el.hasClass("show-background-image")) {
+      if (typeof fCallback === 'function') {
+        fCallback($el);
+      }
+
+      return;
+    }
+
+    var src = $el.css("background-image");
+
+    // No background iamge, just return
+    if (!src.match(/^url/)) {
+      if (typeof fCallback === 'function') {
+        fCallback($el);
+      }
+
+      return;
+    }
+
+    src = src.replace(/(^url\()|(\)$|[\"\'])/g, '');
+
+    $('<img>').attr('src', src).imagesLoaded(
+      function() { 
+        $el.addClass("show-background-image");
+
+        if (typeof fCallback === 'function') {
+          fCallback($el);
+        }
+      }
+    );
+  },
   
 
   // --------------------------------------------------------------------------
