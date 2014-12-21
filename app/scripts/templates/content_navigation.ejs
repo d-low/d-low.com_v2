@@ -1,5 +1,3 @@
-<!-- TODO: Rearrange links: Home, What's New, then content links... -->
-
 <%
 
 var numberToOrdinal = function(i) {
@@ -25,54 +23,58 @@ var className = fixed ? "content-navigation-fixed" : "content-navigation-visual"
 var mostRecentPost = home.get("mostRecentPost");
 var mostRecentPostRandomImage = mostRecentPost.getRandomImage();
 var contents = home.get("contents");
+var navItems = []
+
+if (fixed) {
+  navItems.push({
+    href: "/",
+    imagePath: "",
+    title: "Home"
+  });
+}
+
+navItems.push({
+  href: "#content/" + mostRecentPost.get('path'),
+  imagePath: mostRecentPostRandomImage.get('fullpath'),
+  title: "What's New?"
+});
+
+for (var i = 0; i < contents.length; i++) {
+  var content = contents.at(i);
+  var randomImage = content.getRandomImage();
+  var randomImagePath = randomImage ? randomImage.get("fullpath") : "";
+
+  if (!content) {
+    console.log("No content found for contents.at(" + i + ")");
+    continue;
+  }
+  else if (!randomImage) {
+    console.log("No random image found for " + content.get("title"));
+  }
+  else if (!randomImagePath) {
+    console.log("No random image path found for " + content.get("title"));
+  }
+
+  navItems.push({
+    href: "#content/" +  content.get('path'),
+    imagePath: randomImagePath,
+    title: content.get("title")
+  });
+}
 
 %>
+
 <nav class="content-navigation <%= className %> clearfix" id="content-navigation">
   <ul class="list-unstyled">
-    <li class="content-navigation-item js-content-navigation-item _1st scaled-out">
-      <a class="content-navigation-item-link button" href="#content/<%= mostRecentPost.get('path') %>">
-        <span class="content-navigation-item-image js-content-navigation-item-image" 
-             data-nonmobilestyle="background-image: url(<%= mostRecentPostRandomImage.get('fullpath') %>);" >
-        </span>
-        <span class="content-navigation-item-title">
-          What's New?
-        </span>
-      </a>
-    </li>
-    <% for (var i = 0; i < contents.length; i++) { %>
-      <% 
-      
-      var content = contents.at(i);
-      var randomImage = content.getRandomImage();
-      var randomImagePath = randomImage ? randomImage.get("fullpath") : "";
-
-      if (!content) {
-        console.log("No content found for contents.at(" + i + ")");
-      }
-      else if (!randomImage) {
-        console.log("No random image found for " + content.get("title"));
-      }
-      else if (!randomImagePath) {
-        console.log("No random image path found for " + content.get("title"));
-      }
-
-      %>
-
-      <li class="content-navigation-item js-content-navigation-item <%= numberToOrdinal(i + 2) %> scaled-out">
-        <a class="content-navigation-item-link button" href="#content/<%= content.get('path') %>">
+    <% for (var i = 0; i < navItems.length; i++) { %>
+      <li class="content-navigation-item js-content-navigation-item <%= numberToOrdinal(i + 1) %> scaled-out">
+        <a class="content-navigation-item-link button" href="<%= navItems[i].href %>">
           <span class="content-navigation-item-image js-content-navigation-item-image"
-               data-nonmobilestyle="background-image: url(<%= randomImagePath %>);" >
+               data-nonmobilestyle="background-image: url(<%= navItems[i].imagePath %>);" >
           </span>
           <span  class="content-navigation-item-title">
-            <%= content.get("title") %>
+            <%= navItems[i].title %>
           </span>
-        </a>
-      </li>
-    <% } %>
-    <% if (fixed) { %>
-      <li class="content-navigation-item js-content-navigation-item scaled-out">
-        <a class="content-navigation-item-link button" href="/">
-          <span  class="content-navigation-item-title">Home</span>
         </a>
       </li>
     <% } %>
