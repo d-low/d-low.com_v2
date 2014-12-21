@@ -314,8 +314,6 @@ Dlow.Views = Dlow.Views || {};
       var currentImage = -1;
 
       var fScaleIn = function($navItemImage) {
-        console.log("fScaleIn()");
-
         var $navItem = $navItemImage.closest(".js-content-navigation-item");
         $navItem
           .one(
@@ -332,8 +330,6 @@ Dlow.Views = Dlow.Views || {};
           return;
         }
 
-        console.log("fLoadNextNavItemImage(): currentImage = " + currentImage);
-        
         Dlow.loadBackgroundImage($(navItemImages[currentImage]), fScaleIn);        
       };
 
