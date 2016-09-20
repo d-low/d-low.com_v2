@@ -21,7 +21,6 @@
     background: -webkit-linear-gradient( bottom, rgb($r, $g, $b) 15%, rgba($r, $g, $b, 0) 100%);
     background: -o-linear-gradient( bottom, rgb($r, $g, $b) 15%, rgba($r, $g, $b, 0) 100%);
     background: -ms-linear-gradient( bottom, rgb($r, $g, $b) 15%, rgba($r, $g, $b, 0) 100%);
-    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#03E3FFBF', endColorstr='#E3FFBF', GradientType=0);
     background: linear-gradient( bottom, rgb($r, $g, $b) 15%, rgba($r, $g, $b, 0) 100%);
 }
 
