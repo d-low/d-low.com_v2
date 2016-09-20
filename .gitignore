@@ -15,3 +15,4 @@ app/data/06-Europe
 todo.txt
 git.log
 *.swp
+.DS_Store
